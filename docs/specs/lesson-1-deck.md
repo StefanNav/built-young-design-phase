@@ -1,6 +1,6 @@
 # Spec: Lesson 1 slide deck
 
-**Status:** Built, waiting on the coach's photo and a real app screen for slide 16
+**Status:** Built, waiting on a real app screen for slide 16
 **Sources:** Design Phase Playbook and Slide deck brief in Notion (read 2026-11-01), plus the coach's pasted Claude Design brief
 
 ## Problem statement
@@ -84,11 +84,11 @@ Content follows the playbook's 16-slide outline. Slide 14 is added from the past
 
 **5. Images**
 - [ ] Uses the real logo file and real screens of Somni, LastingMind and FanFeed, none of them cropped by the layout.
-- [ ] The photo of Stefan and the real app on the "Try it" slide are labeled "Drop in" frames.
+- [ ] The real app on the "Try it" slide is a labeled "Drop in" frame.
 
 ### P1: fast follow
 
-- Add the coach's photo and a real app screen for slide 16.
+- Add a real app screen for slide 16.
 - Deep links to a slide, such as `#9`.
 - Fullscreen shortcut.
 
@@ -114,4 +114,4 @@ Content follows the playbook's 16-slide outline. Slide 14 is added from the past
 
 ## Timeline considerations
 
-No deadline was given. The photo and slide 16 screen are the only inputs needed from the coach before teaching.
+No deadline was given. The slide 16 screen is the only input still needed from the coach before teaching.

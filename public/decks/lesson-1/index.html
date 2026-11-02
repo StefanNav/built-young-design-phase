@@ -52,7 +52,7 @@ h1 { position: absolute; left: 96px; top: 64px; width: 1728px; font-size: 84px; 
 .t-logo { position: absolute; right: 110px; top: 240px; width: 600px; height: 586px; object-fit: contain; }
 
 /* 2 About */
-.about-photo { position: absolute; left: 96px; top: 210px; width: 560px; height: 740px; }
+.about-photo { position: absolute; left: 96px; top: 210px; width: 560px; height: 740px; object-fit: cover; object-position: 50% 50%; border-radius: 24px; }
 .about-list { position: absolute; left: 740px; top: 226px; width: 1084px; display: flex; flex-direction: column; gap: 84px; }
 .about-item { display: flex; gap: 30px; }
 .about-item i { flex: none; width: 34px; height: 34px; border-radius: 9px; margin-top: 2px; }
@@ -248,7 +248,7 @@ h1 { position: absolute; left: 96px; top: 64px; width: 1728px; font-size: 84px; 
 <!-- 2 -->
 <section class="slide" aria-label="Hi, I'm Stefan">
   <h1>Hi, I'm Stefan</h1>
-  <div class="dropin about-photo">Drop in: photo of Stefan</div>
+  <img class="about-photo" src="assets/stefan.jpg" alt="Stefan smiling, in a dark sweater">
   <div class="about-list">
     <div class="about-item"><i style="background:var(--orange)"></i><div><small>What I do</small><p>I'm a product designer. I take apps from idea to launch, the same path you're on now.</p></div></div>
     <div class="about-item"><i style="background:var(--teal)"></i><div><small>Fun fact</small><p>Before design, I fought wildfires.</p></div></div>
