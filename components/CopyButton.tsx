@@ -4,28 +4,38 @@ import { useEffect, useRef, useState, type CSSProperties } from "react";
 
 export default function CopyButton({ text }: { text: string }) {
   const [copied, setCopied] = useState(false);
+  const [failed, setFailed] = useState(false);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => () => {
     if (timer.current) clearTimeout(timer.current);
   }, []);
 
-  const onCopy = () => {
+  const fallbackCopy = () => {
+    const ta = document.createElement("textarea");
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    const ok = document.execCommand("copy");
+    document.body.removeChild(ta);
+    return ok;
+  };
+
+  const onCopy = async () => {
+    let ok: boolean;
     try {
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(text);
-      } else {
-        const ta = document.createElement("textarea");
-        ta.value = text;
-        document.body.appendChild(ta);
-        ta.select();
-        document.execCommand("copy");
-        document.body.removeChild(ta);
-      }
-    } catch {}
-    setCopied(true);
+      await navigator.clipboard.writeText(text);
+      ok = true;
+    } catch {
+      ok = fallbackCopy();
+    }
+    setCopied(ok);
+    setFailed(!ok);
     if (timer.current) clearTimeout(timer.current);
-    timer.current = setTimeout(() => setCopied(false), 1600);
+    timer.current = setTimeout(() => {
+      setCopied(false);
+      setFailed(false);
+    }, 1600);
   };
 
   const style: CSSProperties = {
@@ -44,7 +54,7 @@ export default function CopyButton({ text }: { text: string }) {
 
   return (
     <button onClick={onCopy} style={style}>
-      {copied ? "Copied ✓" : "Copy"}
+      {copied ? "Copied ✓" : failed ? "Couldn't copy" : "Copy"}
     </button>
   );
 }

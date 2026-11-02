@@ -85,24 +85,36 @@ button {
   font-family: var(--font-sans);
 }
 
-.by-scroll::-webkit-scrollbar {
-  height: 10px;
+.by-lift {
+  transition: transform 140ms ease;
 }
-.by-scroll::-webkit-scrollbar-track {
-  background: transparent;
-}
-.by-scroll::-webkit-scrollbar-thumb {
-  background: var(--by-border);
-  border-radius: 9999px;
+.by-lift:hover {
+  transform: translateY(-2px);
 }
 
-@keyframes byFade {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
+.by-disclosure > summary {
+  cursor: pointer;
+  list-style: none;
+}
+.by-disclosure > summary::-webkit-details-marker {
+  display: none;
+}
+.by-chevron {
+  transition: transform 140ms ease;
+}
+.by-disclosure[open] > summary .by-chevron {
+  transform: rotate(90deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
-  to {
-    opacity: 1;
+  .by-lift,
+  .by-chevron {
+    transition: none;
+  }
+  .by-lift:hover {
     transform: none;
   }
 }

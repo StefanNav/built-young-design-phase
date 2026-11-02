@@ -1,22 +1,20 @@
 # Built Young — Design Phase
 
-A companion site for the Built Young **Design phase** (Phase 2 of 4): it walks
-students and instructors through turning a PRD into a build-ready product across
-three sessions — from a rough clickable prototype to a polished, high-fidelity
-front end.
+A companion site for students in the Built Young **Design phase** (Phase 2 of 4).
+Five lessons take a student from their Phase 1 PRD and epics to a tested, polished
+app that's ready for an engineer.
 
-Implemented from the Claude Design handoff prototype (`BuiltYoung Design
-Phase.dc.html`) as a **Next.js 16 (App Router) + TypeScript** app.
+Built with **Next.js 16 (App Router) + TypeScript**. Content comes from the Design
+Phase Playbook in Notion, copied by hand into `lib/data.ts`. Coach-only material
+stays in Notion.
 
 ## Features
 
-- **Routes**: Home, Overview, Session 1/2/3, Walkthrough, Prompts, Resources
-- **Student / Instructor toggle** — instructor view reveals the timed session
-  flow; preference persists in `localStorage`
-- **Checklists** — "Before you start" and homework items persist and drive a
-  per-session progress bar
-- **Starter prompt library** — filterable, with copy-to-clipboard
-- **Usability-testing walkthrough** — horizontal-scroll comic with prev/next
+- **Routes**: Home and Lesson 1 to 5
+- **Lesson pages** — what to prep, what we'll do, prompts, guides, inspiration
+  links and homework, all in one place
+- **Checklists** — prep and homework items persist in `localStorage`
+- **Prompts** — copy-to-clipboard, collapsed until opened
 - Built on the Built Young design system tokens (colors, type, spacing,
   elevation) in `app/globals.css`
 
@@ -33,21 +31,20 @@ npm run start   # serve the production build
 
 ```
 app/
-  layout.tsx            root layout: Header + Footer + AppProvider
+  layout.tsx            root layout: Header + Footer
   globals.css           design-system tokens + global styles
-  page.tsx              Home
-  overview/             Overview
-  session/[num]/        Session 1/2/3
-  walkthrough/          Usability-testing comic
-  prompts/              Prompt library
-  resources/            Grouped tools & links
+  page.tsx              Home: lessons, then the four-phase journey
+  lesson/[num]/         Lesson 1 to 5
 components/
-  AppContext.tsx        view + checklist state (localStorage)
   Header.tsx / Footer.tsx
-  CheckItem.tsx         persisted checklist item
+  CheckItem.tsx         checklist item, saved in localStorage
   CopyButton.tsx        copy-to-clipboard button
+  Disclosure.tsx        collapsed-by-default card
+  PromptCard.tsx        a prompt with its copy button
+  Guides.tsx            Good UX checklist, Premium checklist, test guide
 lib/
-  data.ts               all content (sessions, prompts, phases, resources)
+  data.ts               all content (lessons, prompts, phases, guides, links)
+docs/specs/             product specs
 ```
 
 All content lives in `lib/data.ts`; screens are presentational.
