@@ -96,6 +96,16 @@ button {
   cursor: pointer;
   list-style: none;
 }
+.by-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0 16px 15px 40px;
+}
+.by-disclosure[open] + .by-actions {
+  padding-top: 14px;
+  border-top: 1px solid var(--by-border);
+}
 .by-disclosure > summary::-webkit-details-marker {
   display: none;
 }

@@ -6,7 +6,7 @@ import Footer from "@/components/Footer";
 export const metadata: Metadata = {
   title: "Built Young — Design Phase",
   description:
-    "Your companion for the Design phase: five lessons from your PRD to a tested, polished app.",
+    "Your companion for the Design phase: five sessions from your PRD to a tested, polished app.",
 };
 
 export default function RootLayout({

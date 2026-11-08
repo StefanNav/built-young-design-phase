@@ -2,12 +2,14 @@ import type { ReactNode } from "react";
 
 // A collapsed-by-default card. `aside` sits over the summary row, outside
 // <summary>, so a button placed there doesn't open or close the card.
+// `actions` is a row of buttons under the card that stays visible when collapsed.
 export default function Disclosure({
   title,
   note,
   tag,
   badge,
   aside,
+  actions,
   children,
 }: {
   title: string;
@@ -15,6 +17,7 @@ export default function Disclosure({
   tag?: string;
   badge?: string;
   aside?: ReactNode;
+  actions?: ReactNode;
   children: ReactNode;
 }) {
   return (
@@ -76,6 +79,7 @@ export default function Disclosure({
         </summary>
         {children}
       </details>
+      {actions && <div className="by-actions">{actions}</div>}
       {aside && <div style={{ position: "absolute", top: 11, right: 12 }}>{aside}</div>}
     </div>
   );

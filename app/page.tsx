@@ -21,11 +21,11 @@ export default function HomePage() {
           maxWidth: "56ch",
         }}
       >
-        Five lessons that take your app from your Phase 1 docs to a tested, polished app, ready for
+        Five sessions that take your app from your Phase 1 PRD to a tested, polished app, ready for
         an engineer.
       </p>
 
-      {/* Lessons */}
+      {/* Sessions */}
       <div style={{ display: "flex", flexDirection: "column", gap: 12, marginTop: 28 }}>
         {LESSONS.map((l) => (
           <Link
@@ -45,19 +45,29 @@ export default function HomePage() {
           >
             <span
               style={{
-                font: "800 18px/1 var(--font-sans)",
                 color: "#fff",
                 background: "var(--by-gradient-primary)",
-                width: 44,
-                height: 44,
+                width: 64,
+                height: 56,
                 borderRadius: 12,
                 display: "flex",
+                flexDirection: "column",
                 alignItems: "center",
                 justifyContent: "center",
+                gap: 4,
                 flexShrink: 0,
               }}
             >
-              {l.num}
+              <span
+                style={{
+                  font: "700 10px/1 var(--font-sans)",
+                  letterSpacing: "0.06em",
+                  textTransform: "uppercase",
+                }}
+              >
+                Session
+              </span>
+              <span style={{ font: "800 22px/1 var(--font-sans)" }}>{l.num}</span>
             </span>
             <span style={{ flex: 1, minWidth: 0 }}>
               <span

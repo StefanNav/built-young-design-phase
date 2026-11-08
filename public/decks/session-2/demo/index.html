@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Workout Log prototype</title>
+<style>
+/* A grey, medium-fidelity wireframe. No brand colors on purpose. */
+:root {
+  --ink: #1F1F1F; --muted: #6E6E6E; --faint: #9C9C9C; --line: #D4D4D4;
+  --fill: #F1F1F1; --page: #E4E4E4; --dark: #3A3A3A;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; }
+body { background: var(--page); color: var(--ink); font: 16px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; -webkit-font-smoothing: antialiased; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; min-height: 100%; padding: 24px 16px; }
+button, input { font: inherit; color: inherit; }
+button { cursor: pointer; }
+
+.phone { flex: none; width: 390px; height: min(820px, calc(100vh - 90px)); min-height: 600px; background: #fff; border: 10px solid #2B2B2B; border-radius: 48px; overflow: hidden; position: relative; display: flex; flex-direction: column; }
+.coach { display: flex; align-items: center; gap: 12px; font-size: 13px; color: var(--muted); }
+.coach button { all: unset; cursor: pointer; text-decoration: underline; color: var(--muted); }
+.coach .tag { background: #fff; border: 1px solid var(--line); border-radius: 999px; padding: 2px 10px; }
+
+/* On a phone, the prototype fills the screen. */
+@media (max-width: 500px) {
+  body { padding: 0; justify-content: flex-start; gap: 0; }
+  .phone { width: 100%; height: 100dvh; min-height: 0; border: 0; border-radius: 0; }
+  .coach { padding: 14px 0 24px; }
+}
+
+/* ---- App ---- */
+.top { flex: none; height: 56px; padding: 0 12px; display: grid; grid-template-columns: 72px 1fr 72px; align-items: center; border-bottom: 1px solid var(--line); margin-top: 22px; }
+.top h1 { margin: 0; font-size: 17px; font-weight: 600; text-align: center; }
+.top .back { all: unset; cursor: pointer; font-size: 28px; line-height: 1; padding: 4px 8px; color: var(--ink); }
+.top .finish { all: unset; cursor: pointer; justify-self: end; font-size: 13px; color: var(--faint); padding: 6px 4px; }
+.body { flex: 1; overflow-y: auto; padding: 18px 16px; display: flex; flex-direction: column; gap: 14px; }
+.foot { flex: none; padding: 12px 16px 18px; display: flex; flex-direction: column; gap: 10px; border-top: 1px solid var(--line); background: #fff; }
+.btn { width: 100%; border: 0; border-radius: 12px; padding: 16px; font-size: 17px; font-weight: 600; background: var(--dark); color: #fff; }
+.btn.secondary { background: #fff; color: var(--ink); border: 1.5px solid var(--dark); }
+.box { border: 1px solid var(--line); border-radius: 12px; padding: 14px; background: var(--fill); }
+.label { font-size: 12px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); margin: 0 0 4px; }
+.big { font-size: 17px; font-weight: 600; margin: 0; }
+.small { font-size: 14px; color: var(--muted); margin: 2px 0 0; }
+.hello { font-size: 24px; font-weight: 700; margin: 4px 0 2px; }
+.placeholder { height: 120px; border: 1px solid var(--line); border-radius: 12px; background:
+  linear-gradient(to top right, transparent calc(50% - 1px), var(--line) 50%, transparent calc(50% + 1px)),
+  linear-gradient(to top left, transparent calc(50% - 1px), var(--line) 50%, transparent calc(50% + 1px)), var(--fill); }
+.tabs { flex: none; display: flex; border-top: 1px solid var(--line); }
+.tabs button { all: unset; cursor: pointer; flex: 1; text-align: center; padding: 10px 0 16px; font-size: 12px; color: var(--muted); }
+.tabs button i { display: block; width: 22px; height: 22px; margin: 0 auto 4px; border-radius: 6px; border: 1.5px solid currentColor; }
+.tabs button.on { color: var(--ink); font-weight: 600; }
+
+.search { width: 100%; border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; background: var(--fill); }
+.list { display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+.list button { all: unset; cursor: pointer; display: flex; justify-content: space-between; align-items: center; padding: 16px 14px; border-top: 1px solid var(--line); background: #fff; }
+.list button:first-child { border-top: 0; }
+.list button span { color: var(--faint); }
+.empty { color: var(--muted); font-size: 14px; text-align: center; padding: 12px; }
+
+.exercise { border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+.exercise h2 { margin: 0; padding: 12px 14px; font-size: 17px; background: var(--fill); border-bottom: 1px solid var(--line); }
+.set { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; border-top: 1px solid var(--line); }
+.set:first-of-type { border-top: 0; }
+.set b { font-weight: 600; }
+.stepper { display: flex; align-items: center; gap: 10px; }
+.stepper button { width: 34px; height: 34px; border-radius: 8px; border: 1px solid var(--line); background: #fff; font-size: 18px; line-height: 1; }
+.stepper output { min-width: 64px; text-align: center; }
+.add-set { all: unset; cursor: pointer; display: block; width: 100%; padding: 12px 14px; border-top: 1px solid var(--line); color: var(--muted); font-size: 15px; }
+
+.done { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 10px; padding: 24px; }
+.check { width: 72px; height: 72px; border-radius: 50%; border: 2px solid var(--dark); display: flex; align-items: center; justify-content: center; font-size: 34px; }
+.summary { width: 100%; text-align: left; margin-top: 10px; }
+.summary p { margin: 0; padding: 10px 0; border-top: 1px solid var(--line); }
+.summary p:first-child { border-top: 0; }
+
+.toast { position: absolute; left: 16px; right: 16px; bottom: 90px; background: var(--dark); color: #fff; border-radius: 10px; padding: 12px 14px; font-size: 14px; text-align: center; opacity: 0; transition: opacity 160ms ease; pointer-events: none; }
+.toast.show { opacity: 1; }
+</style>
+</head>
+<body>
+
+<div class="phone" id="app" aria-live="polite"></div>
+<div class="coach"><span id="version"></span><button id="restart" type="button">Restart</button></div>
+
+<script>
+(function () {
+  // ?fixed shows the version after the test: a clear "Save workout" button.
+  var FIXED = new URLSearchParams(location.search).has("fixed");
+  var EXERCISES = ["Squats", "Bench press", "Deadlift", "Push-ups"];
+  var app = document.getElementById("app");
+  var state;
+
+  function reset() {
+    state = { screen: "home", workout: [], query: "", last: "Tuesday: Bench press, 3 sets", week: 2 };
+    render();
+  }
+
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+
+  function describe(ex) {
+    var n = ex.sets.length;
+    var same = ex.sets.every(function (r) { return r === ex.sets[0]; });
+    return ex.name + ": " + n + (n === 1 ? " set" : " sets") + (same ? " of " + ex.sets[0] : " (" + ex.sets.join(", ") + " reps)");
+  }
+
+  var screens = {
+    home: function () {
+      return '<div class="top" style="grid-template-columns:1fr"><h1>Workout Log</h1></div>' +
+        '<div class="body">' +
+          '<p class="hello">Hi there</p><p class="small" style="margin-top:-8px">Ready when you are.</p>' +
+          '<div class="box"><p class="label">Last workout</p><p class="big">' + esc(state.last) + '</p></div>' +
+          '<div class="box"><p class="label">This week</p><p class="big">' + state.week + ' workouts</p></div>' +
+          '<div class="placeholder" aria-hidden="true"></div>' +
+        '</div>' +
+        '<div class="foot" style="border-top:0"><button class="btn" data-go="pick">Log a workout</button></div>' +
+        '<nav class="tabs"><button class="on" data-toast=""><i></i>Home</button><button data-toast="Progress isn\'t in this prototype yet."><i></i>Progress</button><button data-toast="Profile isn\'t in this prototype yet."><i></i>Profile</button></nav>';
+    },
+
+    pick: function () {
+      var q = state.query.trim().toLowerCase();
+      var items = EXERCISES.filter(function (e) { return e.toLowerCase().indexOf(q) !== -1; });
+      var list = items.length
+        ? '<div class="list">' + items.map(function (e) { return '<button data-pick="' + esc(e) + '">' + esc(e) + '<span>&rsaquo;</span></button>'; }).join("") + '</div>'
+        : '<p class="empty">No exercises match "' + esc(state.query) + '".</p>';
+      return '<div class="top"><button class="back" data-back aria-label="Back">&lsaquo;</button><h1>Pick an exercise</h1><span></span></div>' +
+        '<div class="body"><input class="search" id="search" type="search" placeholder="Search exercises" value="' + esc(state.query) + '" aria-label="Search exercises"><div id="results">' + list + '</div></div>';
+    },
+
+    sets: function () {
+      var cards = state.workout.map(function (ex, i) {
+        var rows = ex.sets.map(function (reps, j) {
+          return '<div class="set"><b>Set ' + (j + 1) + '</b><div class="stepper"><button data-step="' + i + ',' + j + ',-1" aria-label="Fewer reps">&minus;</button><output>' + reps + ' reps</output><button data-step="' + i + ',' + j + ',1" aria-label="More reps">+</button></div></div>';
+        }).join("");
+        return '<section class="exercise"><h2>' + esc(ex.name) + '</h2>' + rows + '<button class="add-set" data-addset="' + i + '">+ Add set</button></section>';
+      }).join("");
+      // The planted problem: saving is a small grey "Finish" in the corner,
+      // while the biggest button adds another exercise.
+      var finish = FIXED ? "<span></span>" : '<button class="finish" data-save>Finish</button>';
+      var foot = FIXED
+        ? '<button class="btn secondary" data-go="pick">Add exercise</button><button class="btn" data-save>Save workout</button>'
+        : '<button class="btn" data-go="pick">Add exercise</button>';
+      return '<div class="top"><button class="back" data-back aria-label="Back">&lsaquo;</button><h1>Today\'s workout</h1>' + finish + '</div>' +
+        '<div class="body">' + cards + '</div><div class="foot">' + foot + '</div>';
+    },
+
+    saved: function () {
+      return '<div class="top" style="grid-template-columns:1fr"><h1>Workout Log</h1></div>' +
+        '<div class="done"><div class="check" aria-hidden="true">&#10003;</div><p class="hello">Workout saved</p>' +
+        '<div class="box summary">' + state.workout.map(function (ex) { return '<p>' + esc(describe(ex)) + '</p>'; }).join("") + '</div></div>' +
+        '<div class="foot" style="border-top:0"><button class="btn" data-home>Done</button></div>';
+    }
+  };
+
+  function render() {
+    app.innerHTML = screens[state.screen]() + '<div class="toast" id="toast" role="status"></div>';
+    var search = document.getElementById("search");
+    if (search) search.addEventListener("input", function () {
+      state.query = search.value;
+      // Only redraw the list, so the search box keeps focus.
+      var tmp = document.createElement("div");
+      tmp.innerHTML = screens.pick();
+      document.getElementById("results").innerHTML = tmp.querySelector("#results").innerHTML;
+    });
+  }
+
+  var toastTimer;
+  function toast(msg) {
+    var t = document.getElementById("toast");
+    t.textContent = msg;
+    t.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { t.classList.remove("show"); }, 1800);
+  }
+
+  app.addEventListener("click", function (e) {
+    var b = e.target.closest("button");
+    if (!b) return;
+    var d = b.dataset;
+    if (d.go) { state.query = ""; state.screen = d.go; render(); }
+    else if (d.pick) {
+      var found = state.workout.some(function (ex) { return ex.name === d.pick; });
+      if (!found) state.workout.push({ name: d.pick, sets: [10] });
+      state.screen = "sets"; render();
+    }
+    else if (d.back !== undefined) {
+      state.screen = state.screen === "pick" && state.workout.length ? "sets" : state.screen === "sets" ? "pick" : "home";
+      render();
+    }
+    else if (d.addset !== undefined) {
+      var sets = state.workout[+d.addset].sets;
+      sets.push(sets[sets.length - 1]);
+      render();
+    }
+    else if (d.step) {
+      var p = d.step.split(",").map(Number);
+      var s = state.workout[p[0]].sets;
+      s[p[1]] = Math.max(1, s[p[1]] + p[2]);
+      render();
+    }
+    else if (d.save !== undefined) {
+      var first = state.workout[0];
+      state.last = "Today: " + first.name + ", " + first.sets.length + (first.sets.length === 1 ? " set" : " sets");
+      state.week += 1;
+      state.screen = "saved"; render();
+    }
+    else if (d.home !== undefined) { state.workout = []; state.screen = "home"; render(); }
+    else if (d.toast) toast(d.toast);
+  });
+
+  document.getElementById("restart").onclick = reset;
+  document.getElementById("version").innerHTML = FIXED ? '<span class="tag">Fixed version</span>' : "";
+  reset();
+})();
+</script>
+</body>
+</html>

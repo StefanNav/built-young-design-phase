@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<title>Lesson 1: From idea to wireframes — Built Young</title>
+<title>Session 1: From idea to wireframes — Built Young</title>
 <link rel="icon" href="assets/by-logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -38,7 +38,6 @@ h1 { position: absolute; left: 96px; top: 64px; width: 1728px; font-size: 84px; 
 .navy .footer .num { color: #A7ADB9; }
 .mark { background: var(--orange); color: var(--navy); border-radius: 18px; padding: 0 20px 6px; margin-left: -6px; display: inline-block; }
 .card { background: var(--white); border: 2px solid var(--border); border-radius: 24px; }
-.dropin { display: flex; align-items: center; justify-content: center; text-align: center; padding: 32px; background: #F3F4F6; border: 3px dashed #9CA3AF; border-radius: 24px; font-size: 32px; font-weight: 500; line-height: 1.3; color: var(--gray); }
 .num-block { flex: none; display: flex; align-items: center; justify-content: center; border-radius: 12px; font-weight: 800; }
 .arrow { flex: none; display: flex; align-items: center; justify-content: center; color: var(--navy); }
 .arrow svg { width: 48px; height: 32px; }
@@ -47,7 +46,7 @@ h1 { position: absolute; left: 96px; top: 64px; width: 1728px; font-size: 84px; 
 
 /* 1 Title */
 .t-label { position: absolute; left: 96px; top: 210px; font-size: 32px; font-weight: 700; letter-spacing: 3px; color: var(--teal-dark); }
-.t-title { position: absolute; left: 96px; top: 278px; width: 1120px; font-size: 124px; line-height: 1.14; font-weight: 800; letter-spacing: -3.5px; }
+.t-title { position: absolute; left: 96px; top: 278px; width: 1100px; font-size: 124px; line-height: 1.14; font-weight: 800; letter-spacing: -3.5px; }
 .t-promise { position: absolute; left: 96px; top: 760px; width: 960px; font-size: 44px; line-height: 1.3; color: var(--gray); }
 .t-logo { position: absolute; right: 110px; top: 240px; width: 600px; height: 586px; object-fit: contain; }
 
@@ -67,7 +66,14 @@ h1 { position: absolute; left: 96px; top: 64px; width: 1728px; font-size: 84px; 
 .work h3 { font-size: 42px; font-weight: 800; letter-spacing: -0.8px; }
 .work p { font-size: 30px; line-height: 1.25; color: var(--gray); margin-top: 4px; min-height: 76px; }
 
-/* 4 Phases */
+/* 4 Your turn */
+.turn { position: absolute; left: 96px; top: 316px; width: 1728px; display: grid; grid-template-columns: 1fr 1fr; gap: 150px 80px; }
+.turn-item { display: flex; gap: 30px; }
+.turn-item i { flex: none; width: 38px; height: 38px; border-radius: 10px; margin-top: 14px; }
+.turn-item p { font-size: 60px; line-height: 1.16; font-weight: 700; letter-spacing: -1px; }
+.turn-item small { display: block; font-size: 40px; font-weight: 400; letter-spacing: 0; line-height: 1.3; color: var(--gray); margin-top: 12px; }
+
+/* 5 Phases */
 .phases { position: absolute; left: 96px; top: 400px; width: 1728px; display: flex; align-items: stretch; }
 .phase { flex: 1 1 0; min-width: 0; border-radius: 24px; padding: 36px 24px; height: 340px; background: var(--white); border: 2px solid var(--border); display: flex; flex-direction: column; justify-content: space-between; position: relative; }
 .phase small { font-size: 30px; font-weight: 600; color: var(--gray); }
@@ -78,20 +84,20 @@ h1 { position: absolute; left: 96px; top: 64px; width: 1728px; font-size: 84px; 
 .phases .arrow { width: 52px; }
 .phases .arrow svg { width: 38px; }
 
-/* 5 Goals */
+/* 6 Goals */
 .goal { position: absolute; left: 96px; width: 1728px; display: flex; align-items: center; gap: 56px; }
 .goal .big { flex: none; width: 200px; height: 200px; border-radius: 32px; display: flex; align-items: center; justify-content: center; font-size: 132px; font-weight: 800; color: var(--navy); }
 .goal h2 { font-size: 72px; font-weight: 800; letter-spacing: -1.6px; line-height: 1.1; }
 .goal p { font-size: 40px; line-height: 1.3; color: #C9CDD6; margin-top: 12px; }
 
-/* 6 Parts */
+/* 7 Parts */
 .parts { position: absolute; left: 96px; top: 252px; width: 1728px; height: 722px; display: flex; gap: 24px; align-items: flex-end; }
 .part { flex: 1; border-radius: 28px; padding: 36px 40px; display: flex; flex-direction: column; }
 .part small { font-size: 30px; font-weight: 600; }
 .part h2 { font-size: 56px; line-height: 1.08; font-weight: 800; letter-spacing: -1.2px; margin-top: 10px; }
 .part p { font-size: 32px; line-height: 1.3; margin-top: 16px; }
 
-/* 7 Process */
+/* 8 Process */
 .steps { position: absolute; left: 96px; top: 372px; width: 1728px; display: grid; grid-template-columns: repeat(9, 1fr); gap: 12px; }
 .step { height: 210px; border-radius: 20px; background: var(--white); border: 2px solid var(--border); padding: 20px 12px; display: flex; flex-direction: column; justify-content: space-between; align-items: center; text-align: center; }
 .step i { font-style: normal; width: 52px; height: 52px; border-radius: 12px; background: var(--navy); color: #fff; font-size: 28px; font-weight: 800; display: flex; align-items: center; justify-content: center; }
@@ -102,52 +108,19 @@ h1 { position: absolute; left: 96px; top: 64px; width: 1728px; font-size: 84px; 
 .bracket { position: absolute; top: 296px; font-size: 30px; font-weight: 700; padding-bottom: 12px; text-align: center; white-space: nowrap; }
 .loop-label { position: absolute; left: 400px; width: 730px; top: 736px; text-align: center; font-size: 38px; font-weight: 700; color: var(--teal-dark); line-height: 1.25; }
 
-/* 8 Principles */
-.principles { position: absolute; left: 96px; top: 230px; width: 1728px; display: grid; grid-template-columns: 1fr 1fr; gap: 72px 72px; grid-auto-rows: 1fr; }
+/* 9 Principles */
+.principles { position: absolute; left: 96px; top: 276px; width: 1728px; display: grid; grid-template-columns: 1fr 1fr; gap: 56px 72px; grid-auto-rows: 1fr; }
 .pr { display: flex; gap: 26px; }
 .pr .num-block { width: 72px; height: 72px; background: var(--orange); font-size: 36px; }
 .pr h2 { font-size: 42px; font-weight: 800; letter-spacing: -0.8px; line-height: 1.15; }
 .pr p { font-size: 32px; line-height: 1.3; color: var(--gray); margin-top: 8px; }
 
-/* 9 Slop vs designed */
-.side { position: absolute; top: 186px; width: 470px; }
-.side h2 { font-size: 52px; font-weight: 800; letter-spacing: -1px; margin-bottom: 30px; }
-.side li { display: flex; gap: 16px; font-size: 32px; line-height: 1.22; margin-bottom: 44px; font-weight: 500; }
-.dot { flex: none; width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 800; }
-.dot.bad { background: var(--navy); color: #fff; }
-.dot.good { background: var(--teal-dark); color: #fff; }
-.phone { position: absolute; top: 186px; width: 356px; height: 790px; border-radius: 44px; border: 10px solid var(--navy); overflow: hidden; }
-.marker { position: absolute; z-index: 3; }
-
-/* The AI slop screen is ugly on purpose. Its gradient, glass and sparkles stay in this block. */
-.slop { background: linear-gradient(165deg, #8B3DFF 0%, #5B5BF0 50%, #2F7BEA 100%); color: #fff; padding: 34px 20px; }
-.slop .blob { position: absolute; width: 240px; height: 240px; border-radius: 50%; background: #E879F9; filter: blur(46px); opacity: .55; right: -70px; top: 120px; }
-.slop .brand { font-size: 22px; font-weight: 700; position: relative; }
-.slop h3 { position: relative; font-size: 37px; line-height: 1.08; font-weight: 800; margin: 14px 0 12px; }
-.slop .pills { position: relative; display: flex; gap: 6px; }
-.slop .pills span { flex: 1; text-align: center; padding: 9px 2px; font-size: 17px; font-weight: 700; border-radius: 12px; background: rgba(255,255,255,.2); border: 1px solid rgba(255,255,255,.4); }
-.slop .grid { position: relative; display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin-top: 14px; }
-.slop .grid span { aspect-ratio: 1; display: flex; flex-direction: column; gap: 4px; align-items: center; justify-content: center; font-size: 16px; font-weight: 600; border-radius: 16px; background: rgba(255,255,255,.17); border: 1px solid rgba(255,255,255,.35); box-shadow: 0 4px 18px rgba(255,255,255,.18); }
-.slop .grid em { font-style: normal; font-size: 20px; }
-.slop .cta { position: relative; display: block; margin-top: 14px; padding: 14px; border-radius: 16px; text-align: center; font-size: 22px; font-weight: 700; background: linear-gradient(90deg,#F472B6,#A78BFA); box-shadow: 0 0 22px rgba(244,114,182,.8); }
-
-.real { background: #F7F7F4; color: #16181D; padding: 40px 26px 0; display: flex; flex-direction: column; }
-.real .day { font-size: 22px; font-weight: 600; color: #5C6068; }
-.real h3 { font-size: 42px; line-height: 1.05; font-weight: 800; letter-spacing: -1px; margin-top: 4px; }
-.real .go { margin-top: 24px; background: #E8501F; color: #fff; border-radius: 18px; padding: 26px 10px; text-align: center; font-size: 30px; font-weight: 800; }
-.real h4 { margin: 32px 0 6px; font-size: 22px; font-weight: 700; }
-.real .row { display: flex; justify-content: space-between; align-items: baseline; padding: 14px 0; border-bottom: 2px solid #E4E3DE; font-size: 22px; font-weight: 600; }
-.real .row span { color: #5C6068; font-weight: 500; font-size: 20px; }
-.real .week { margin-top: 26px; font-size: 22px; font-weight: 700; }
-.real .bar { display: flex; gap: 6px; margin-top: 10px; }
-.real .bar i { flex: 1; height: 14px; border-radius: 4px; background: #16181D; }
-.real .bar i:last-child { background: #DAD9D3; }
-
-/* 10 Spot slop */
-.spot { position: absolute; left: 96px; top: 226px; width: 1040px; display: flex; flex-direction: column; gap: 62px; }
-.spot li { display: flex; gap: 26px; align-items: flex-start; font-size: 46px; line-height: 1.2; font-weight: 500; }
-.spot i { flex: none; width: 30px; height: 30px; border-radius: 8px; background: var(--orange); margin-top: 13px; }
-.director { position: absolute; right: 96px; top: 226px; width: 560px; height: 600px; border-radius: 28px; background: var(--navy); color: var(--cream); padding: 56px 52px; display: flex; flex-direction: column; justify-content: center; }
+/* 10 Director */
+.roles { position: absolute; left: 96px; top: 270px; width: 1040px; display: flex; flex-direction: column; gap: 76px; }
+.role small { display: block; font-size: 30px; font-weight: 700; color: var(--teal-dark); margin-bottom: 8px; }
+.role p { font-size: 62px; line-height: 1.18; font-weight: 700; letter-spacing: -1px; }
+.role.aside p { font-size: 44px; font-weight: 500; letter-spacing: 0; line-height: 1.3; color: var(--gray); }
+.director { position: absolute; right: 96px; top: 254px; width: 560px; height: 640px; border-radius: 28px; background: var(--navy); color: var(--cream); padding: 56px 52px; display: flex; flex-direction: column; justify-content: center; }
 .director small { font-size: 66px; font-weight: 800; letter-spacing: -1.4px; line-height: 1.1; color: #C9CDD6; display: block; }
 .director b { font-size: 76px; font-weight: 800; letter-spacing: -1.6px; line-height: 1.08; color: var(--orange); margin-top: 26px; display: block; }
 
@@ -163,7 +136,7 @@ h1 { position: absolute; left: 96px; top: 64px; width: 1728px; font-size: 84px; 
 .back-label { position: absolute; left: 96px; width: 1728px; text-align: center; top: 800px; font-size: 40px; font-weight: 700; color: var(--teal-dark); }
 
 /* 12 Objectives */
-.obj { position: absolute; left: 96px; top: 280px; width: 1728px; display: flex; flex-direction: column; gap: 58px; }
+.obj { position: absolute; left: 96px; top: 276px; width: 1728px; display: flex; flex-direction: column; gap: 40px; }
 .obj li { display: flex; gap: 28px; font-size: 50px; line-height: 1.2; font-weight: 500; }
 .obj i { flex: none; width: 30px; height: 30px; border-radius: 8px; background: var(--orange); margin-top: 16px; }
 
@@ -176,7 +149,18 @@ h1 { position: absolute; left: 96px; top: 64px; width: 1728px; font-size: 84px; 
 .spotlight .ask { margin-top: auto; background: var(--orange-tint); border-radius: 18px; padding: 28px 30px; font-size: 40px; font-weight: 700; line-height: 1.22; color: var(--navy); }
 .spotlight .ask span { display: block; font-size: 30px; font-weight: 600; color: #8A4B00; margin-bottom: 6px; }
 
-/* 14 Epic map */
+/* 14 One piece at a time */
+.blk { position: absolute; width: 600px; height: 196px; border-radius: 24px; padding: 30px 36px; display: flex; flex-direction: column; justify-content: space-between; border: 2px solid var(--border); background: var(--white); }
+.blk small { font-size: 30px; font-weight: 600; color: var(--gray); }
+.blk b { font-size: 42px; line-height: 1.1; font-weight: 800; letter-spacing: -0.9px; }
+.blk.first { background: var(--orange); border-color: var(--orange); }
+.blk.first small { color: var(--navy); }
+.blk.second { background: var(--orange-tint); border-color: var(--orange); }
+.pieces { position: absolute; left: 900px; top: 300px; width: 924px; display: flex; flex-direction: column; gap: 64px; }
+.pieces li { display: flex; gap: 28px; font-size: 46px; line-height: 1.2; font-weight: 500; }
+.pieces .num-block { width: 64px; height: 64px; background: var(--navy); color: #fff; font-size: 32px; }
+
+/* 15 Epic map */
 .epics { position: absolute; left: 96px; top: 196px; width: 1728px; display: flex; flex-direction: column; gap: 14px; }
 .epic { display: flex; align-items: center; gap: 28px; height: 108px; padding: 0 34px; border-radius: 20px; background: var(--white); border: 2px solid var(--border); }
 .epic small { width: 130px; font-size: 30px; font-weight: 600; color: var(--gray); }
@@ -188,22 +172,17 @@ h1 { position: absolute; left: 96px; top: 64px; width: 1728px; font-size: 84px; 
 .cut::after { content: ""; flex: 1; border-top: 5px dashed var(--orange); }
 .caption { position: absolute; left: 96px; top: 866px; width: 1728px; font-size: 42px; line-height: 1.25; font-weight: 500; }
 
-/* 15 Good UX */
+/* 16 Good UX */
 .rules { position: absolute; left: 96px; top: 276px; width: 1728px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 34px 40px; grid-auto-rows: 188px; }
 .rule { display: flex; gap: 22px; align-items: flex-start; padding: 28px 26px; border-radius: 20px; background: var(--white); border: 2px solid var(--border); }
 .rule .num-block { width: 60px; height: 60px; background: var(--orange); font-size: 30px; }
 .rule b { font-size: 38px; line-height: 1.16; font-weight: 700; letter-spacing: -0.7px; }
 
-/* 16 Try it */
-.try-frame { position: absolute; left: 96px; top: 200px; width: 500px; height: 770px; }
-.try-say { position: absolute; left: 680px; top: 300px; width: 1100px; font-size: 92px; line-height: 1.08; font-weight: 800; letter-spacing: -2.2px; }
-.try-hint { position: absolute; left: 680px; top: 660px; width: 1000px; font-size: 40px; line-height: 1.3; color: var(--gray); }
-
 /* 17 Make */
-.make { position: absolute; left: 96px; top: 250px; width: 1728px; display: flex; gap: 36px; }
-.make .card { flex: 1; height: 640px; padding: 56px; display: flex; flex-direction: column; justify-content: space-between; }
-.make svg { width: 180px; height: 180px; color: var(--navy); }
-.make h2 { font-size: 66px; line-height: 1.08; font-weight: 800; letter-spacing: -1.4px; }
+.make { position: absolute; left: 96px; top: 250px; width: 1728px; display: flex; gap: 32px; }
+.make .card { flex: 1; height: 660px; padding: 48px; display: flex; flex-direction: column; justify-content: space-between; }
+.make svg { width: 160px; height: 160px; color: var(--navy); }
+.make h2 { font-size: 56px; line-height: 1.1; font-weight: 800; letter-spacing: -1.2px; }
 .make small { display: block; font-size: 32px; font-weight: 700; color: var(--teal-dark); margin-bottom: 14px; }
 
 /* ---- Deck controls ---- */
@@ -239,8 +218,8 @@ h1 { position: absolute; left: 96px; top: 64px; width: 1728px; font-size: 84px; 
 <!-- 1 -->
 <section class="slide" aria-label="Title">
   <p class="t-label">BUILT YOUNG, DESIGN PHASE</p>
-  <div class="t-title">Lesson 1:<br>From idea to<br><span class="mark">wireframes.</span></div>
-  <p class="t-promise">Today your plan starts turning into screens you can click through.</p>
+  <div class="t-title">Session 1:<br>From idea to<br><span class="mark">wireframes.</span></div>
+  <p class="t-promise">Today your PRD becomes a plan, then screens you can click through.</p>
   <img class="t-logo" src="assets/by-logo.png" alt="Built Young logo">
   <aside class="notes">Welcome. About 10 to 12 minutes of slides, then we get hands-on.</aside>
 </section>
@@ -254,7 +233,7 @@ h1 { position: absolute; left: 96px; top: 64px; width: 1728px; font-size: 84px; 
     <div class="about-item"><i style="background:var(--teal)"></i><div><small>Fun fact</small><p>Before design, I fought wildfires.</p></div></div>
     <div class="about-item"><i style="background:var(--navy)"></i><div><small>Why I love design</small><p>I love building things, and design is the heart of building anything.</p></div></div>
   </div>
-  <aside class="notes">Keep it short and human. Ask them back: what's an app you use every day?</aside>
+  <aside class="notes">Keep it short and human. Then hand it over: their turn is next.</aside>
 </section>
 
 <!-- 3 -->
@@ -270,6 +249,19 @@ h1 { position: absolute; left: 96px; top: 64px; width: 1728px; font-size: 84px; 
 </section>
 
 <!-- 4 -->
+<section class="slide" aria-label="Your turn">
+  <h1>Your turn</h1>
+  <p class="sub">Tell us a bit about you.</p>
+  <div class="turn">
+    <div class="turn-item"><i style="background:var(--orange)"></i><p>What have you made lately?<small>Small and unfinished counts.</small></p></div>
+    <div class="turn-item"><i style="background:var(--teal)"></i><p>What are you working on outside school?</p></div>
+    <div class="turn-item"><i style="background:var(--navy)"></i><p>How do you use AI today?</p></div>
+    <div class="turn-item"><i style="background:var(--orange-dark)"></i><p>What do you want to walk away with?</p></div>
+  </div>
+  <aside class="notes">Let them talk. Ask about: their name, where they're calling from and their grade; something they've built or made recently, even if it's small, unfinished or messy; what they're working on outside school; how they use Claude or other AI tools today, and their setup; the most ambitious thing they've tried to build, and what happened; something they know a lot about that most people their age don't; what they want to be able to do by the end. Follow any good answer with: Can you share your screen and show us?</aside>
+</section>
+
+<!-- 5 -->
 <section class="slide" aria-label="Where we are">
   <h1>Where we are</h1>
   <p class="sub">Built Young has four phases.</p>
@@ -282,37 +274,37 @@ h1 { position: absolute; left: 96px; top: 64px; width: 1728px; font-size: 84px; 
     <div class="arrow"><svg><use href="#right"/></svg></div>
     <div class="phase"><small>Phase 4</small><b>Commercialization</b></div>
   </div>
-  <aside class="notes">They've done Problem &amp; Validation. This phase turns the idea into screens. Building comes next.</aside>
+  <aside class="notes">They've done Problem &amp; Validation and come in with a PRD. This phase turns that idea into screens. Building comes next.</aside>
 </section>
 
-<!-- 5 -->
+<!-- 6 -->
 <section class="slide navy" aria-label="Course goals">
   <h1>Course goals</h1>
   <div class="goal" style="top:262px"><div class="big" style="background:var(--orange)">1</div><div><h2>Learn the design process</h2><p>so you can repeat it on any project.</p></div></div>
   <div class="goal" style="top:570px"><div class="big" style="background:var(--teal)">2</div><div><h2>Learn to think like a designer</h2></div></div>
-  <aside class="notes">The process is the "how." Thinking like a designer is the "why" behind each choice.</aside>
+  <aside class="notes">The process is the "how." Thinking like a designer is the "why" behind each choice. Every session practices both, and the next few slides show each one.</aside>
 </section>
 
-<!-- 6 -->
+<!-- 7 -->
 <section class="slide" aria-label="The course in three parts">
   <h1>The course in three parts</h1>
   <div class="parts">
-    <div class="part" style="height:360px;background:var(--orange)"><small>Lessons 1 and 2</small><h2>Make it work</h2><p>Good UX: wireframes, then testing with real people.</p></div>
-    <div class="part" style="height:540px;background:var(--orange-tint)"><small>Lesson 3</small><h2>Make it look good</h2><p>Art direction, a design system and hi-fi screens.</p></div>
-    <div class="part" style="height:722px;background:var(--navy);color:var(--cream)"><small style="color:#C9CDD6">Lessons 4 and 5</small><h2>Make it feel premium</h2><p style="color:#C9CDD6">Building in Claude Code, then polish, motion and the handoff to your engineer.</p></div>
+    <div class="part" style="height:360px;background:var(--orange)"><small>Sessions 1 and 2</small><h2>Make it work</h2><p>Good UX: wireframes, then testing with real people.</p></div>
+    <div class="part" style="height:540px;background:var(--orange-tint)"><small>Session 3</small><h2>Make it look good</h2><p>Art direction, a design system and hi-fi screens.</p></div>
+    <div class="part" style="height:722px;background:var(--navy);color:var(--cream)"><small style="color:#C9CDD6">Sessions 4 and 5</small><h2>Make it feel premium</h2><p style="color:#C9CDD6">Building in Claude Code, then polish, motion and the handoff to your engineer.</p></div>
   </div>
   <aside class="notes">Each part builds on the last, like stacking blocks. It has to work before it's worth making it pretty. Today is the start of "Make it work."</aside>
 </section>
 
-<!-- 7 -->
+<!-- 8 -->
 <section class="slide" aria-label="The design process">
   <h1>The design process</h1>
-  <p class="sub">Nine steps you can use on any project.</p>
-  <div class="bracket" style="left:96px;width:374px;color:var(--teal-dark);border-bottom:5px solid var(--teal)">Done in Phase 1</div>
-  <div class="bracket" style="left:483px;width:181px;color:#A65E00;border-bottom:5px solid var(--orange)">Today</div>
+  <p class="sub">Goal 1: nine steps you can repeat on any project.</p>
+  <div class="bracket" style="left:96px;width:181px;color:var(--teal-dark);border-bottom:5px solid var(--teal)">Phase 1</div>
+  <div class="bracket" style="left:289px;width:375px;color:#A65E00;border-bottom:5px solid var(--orange)">Today</div>
   <div class="steps">
     <div class="step done"><i>&#10003;</i><b>Understand</b></div>
-    <div class="step done"><i>&#10003;</i><b>Plan</b></div>
+    <div class="step"><i>2</i><b>Plan</b></div>
     <div class="step loop"><i>3</i><b>Sketch</b></div>
     <div class="step loop"><i>4</i><b>Test</b></div>
     <div class="step loop"><i>5</i><b>Refine</b></div>
@@ -326,12 +318,13 @@ h1 { position: absolute; left: 96px; top: 64px; width: 1728px; font-size: 84px; 
     <path d="M556 622 L574 596 L592 622" fill="none" stroke="#F79A22" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
   </svg>
   <p class="loop-label">Sketch, test, refine.<br>Repeat until it works.</p>
-  <aside class="notes">You finished Understand and Plan in Phase 1: that's your PRD and Epics doc. Nobody gets it right on the first sketch. Testing tells you what to refine.</aside>
+  <aside class="notes">Understand happened in Phase 1: that's your PRD. Plan happens today, when we turn your PRD into epics. Then we start sketching. Nobody gets it right on the first sketch. Testing tells you what to refine. This is goal 1: a process you can repeat on any project.</aside>
 </section>
 
-<!-- 8 -->
+<!-- 9 -->
 <section class="slide" aria-label="What makes a good designer">
   <h1>What makes a good designer</h1>
+  <p class="sub">Goal 2: how designers think. You'll practice these every session.</p>
   <div class="principles">
     <div class="pr"><div class="num-block">1</div><div><h2>Start with people</h2><p>Design for how people really think and act, not for yourself.</p></div></div>
     <div class="pr"><div class="num-block">4</div><div><h2>Sweat the craft</h2><p>Get the details right so people feel confident using it.</p></div></div>
@@ -340,92 +333,31 @@ h1 { position: absolute; left: 96px; top: 64px; width: 1728px; font-size: 84px; 
     <div class="pr"><div class="num-block">3</div><div><h2>Use design judgment</h2><p>Decide what to build, what to cut, and when it's done.</p></div></div>
     <div class="pr"><div class="num-block">6</div><div><h2>Explain your thinking</h2><p>Make your choices clear so others can understand them and decide with you.</p></div></div>
   </div>
-  <aside class="notes">Don't read all six. Say the names, then give one example. We spotlight one or two each lesson.</aside>
-</section>
-
-<!-- 9 -->
-<section class="slide" aria-label="AI slop vs designed">
-  <h1>AI slop vs designed</h1>
-  <div class="side" style="left:96px">
-    <h2>AI slop</h2>
-    <ol>
-      <li><span class="dot bad">1</span>Hype words that say nothing</li>
-      <li><span class="dot bad">2</span>Fake stats</li>
-      <li><span class="dot bad">3</span>A dozen buttons that all look the same</li>
-      <li><span class="dot bad">4</span>Purple gradients, glass and sparkles</li>
-    </ol>
-  </div>
-
-  <div class="phone slop" style="left:600px">
-    <div class="blob"></div>
-    <div class="brand">&#10022; Workout Log AI</div>
-    <h3>Unlock your fitness potential</h3>
-    <div class="pills"><span>10K+ users</span><span>4.9 stars</span><span>99% results</span></div>
-    <div class="grid">
-      <span><em>&#10022;</em>Explore</span><span><em>&#10022;</em>Insights</span><span><em>&#10022;</em>Discover</span>
-      <span><em>&#10022;</em>Track</span><span><em>&#10022;</em>Goals</span><span><em>&#10022;</em>Coach</span>
-      <span><em>&#10022;</em>Social</span><span><em>&#10022;</em>Plans</span><span><em>&#10022;</em>Stats</span>
-      <span><em>&#10022;</em>Rewards</span><span><em>&#10022;</em>Streaks</span><span><em>&#10022;</em>More</span>
-    </div>
-    <span class="cta">&#10022; Get started</span>
-  </div>
-  <span class="dot bad marker" style="left:578px;top:274px">1</span>
-  <span class="dot bad marker" style="left:578px;top:366px">2</span>
-  <span class="dot bad marker" style="left:578px;top:560px">3</span>
-  <span class="dot bad marker" style="left:578px;top:880px">4</span>
-
-  <div class="phone real" style="left:964px">
-    <p class="day">Tuesday</p>
-    <h3>Ready when you are, Sam</h3>
-    <div class="go">Log a workout</div>
-    <h4>Last workout: Push day</h4>
-    <div class="row">Bench press <span>3 &times; 8, 135 lb</span></div>
-    <div class="row">Shoulder press <span>3 &times; 10, 65 lb</span></div>
-    <div class="row">Push-ups <span>3 &times; 15</span></div>
-    <p class="week">2 of 3 workouts this week</p>
-    <div class="bar"><i></i><i></i><i></i></div>
-  </div>
-  <span class="dot good marker" style="left:1298px;top:290px">1</span>
-  <span class="dot good marker" style="left:1298px;top:372px">2</span>
-  <span class="dot good marker" style="left:1298px;top:424px">3</span>
-  <span class="dot good marker" style="left:1298px;top:590px">4</span>
-
-  <div class="side" style="left:1376px;width:448px">
-    <h2>Designed</h2>
-    <ol>
-      <li><span class="dot good">1</span>Clear hierarchy: big, then small</li>
-      <li><span class="dot good">2</span>One clear next step</li>
-      <li><span class="dot good">3</span>One accent color</li>
-      <li><span class="dot good">4</span>Real workout content</li>
-    </ol>
-  </div>
-  <aside class="notes">Both are the same fictional app. Ask: which one could you use without help? Walk the left side first, then the right. The point isn't that gradients are always bad. It's that nobody chose them.</aside>
+  <aside class="notes">This is goal 2. Don't read all six. Say the names, then give one example. We spotlight one or two each session, and from Session 2 on, homework ends with a designer question about them.</aside>
 </section>
 
 <!-- 10 -->
-<section class="slide" aria-label="How to spot AI slop">
-  <h1>How to spot AI slop</h1>
-  <ul class="spot">
-    <li><i></i>It looks like every other app</li>
-    <li><i></i>Hype words that say nothing</li>
-    <li><i></i>Too many features on one screen</li>
-    <li><i></i>Fake people, stats or reviews</li>
-    <li><i></i>Effects instead of ideas</li>
-  </ul>
+<section class="slide" aria-label="AI is the producer. You're the director.">
+  <h1>Working with Claude</h1>
+  <div class="roles">
+    <div class="role"><small>Claude</small><p>Writes and designs.</p></div>
+    <div class="role"><small>You</small><p>Read, decide and redirect.</p></div>
+    <div class="role aside"><p>Claude's recommendation isn't automatically the right answer.</p></div>
+  </div>
   <div class="director"><small>AI is the producer.</small><b>You're the director.</b></div>
-  <aside class="notes">AI makes this stuff when nobody directs it. Your job is to read, decide and redirect. That's the whole course in one line.</aside>
+  <aside class="notes">Claude writes and designs. Your job is to read, decide and redirect, and Claude's recommendation isn't automatically the right answer. Real example: in a past session, Claude recommended one option and the students picked a different one, because they knew their launch would start with only a few users. Claude didn't know that. They did. That's directing.</aside>
 </section>
 
 <!-- 11 -->
 <section class="slide" aria-label="How this course works">
   <h1>How this course works</h1>
-  <p class="sub">Every lesson runs on the same loop.</p>
+  <p class="sub">Every session runs on the same loop.</p>
   <div class="flow">
-    <div class="box on"><i>1</i><b>Lesson</b></div>
+    <div class="box on"><i>1</i><b>Session</b></div>
     <div class="arrow"><svg><use href="#right"/></svg></div>
     <div class="box"><i>2</i><b>Homework</b></div>
     <div class="arrow"><svg><use href="#right"/></svg></div>
-    <div class="box"><i>3</i><b>Share it at least a day before</b></div>
+    <div class="box"><i>3</i><b>Share it by Sunday 1 PM ET</b></div>
     <div class="arrow"><svg><use href="#right"/></svg></div>
     <div class="box"><i>4</i><b>Stefan leaves comments</b></div>
     <div class="arrow"><svg><use href="#right"/></svg></div>
@@ -435,8 +367,8 @@ h1 { position: absolute; left: 96px; top: 64px; width: 1728px; font-size: 84px; 
     <path d="M1676 604 C1676 800, 244 800, 244 620" fill="none" stroke="#F79A22" stroke-width="7" stroke-linecap="round"/>
     <path d="M226 634 L244 608 L262 634" fill="none" stroke="#F79A22" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
   </svg>
-  <p class="back-label">...in the next lesson.</p>
-  <aside class="notes">Share your work at least 24 hours before, and answer the designer question in Slack. Feedback is about choices, not grades. Every lesson starts with my comments.</aside>
+  <p class="back-label">...in the next session.</p>
+  <aside class="notes">Share your work by Sunday at 1 PM ET before each session. From Session 2 on, you'll also answer a designer question in Slack. Feedback is about choices, not grades. Every session starts with my comments.</aside>
 </section>
 
 <!-- 12 -->
@@ -446,6 +378,7 @@ h1 { position: absolute; left: 96px; top: 64px; width: 1728px; font-size: 84px; 
   <ul class="obj">
     <li><i></i>Name the steps of the design process</li>
     <li><i></i>Say who your users are and what your core loop is</li>
+    <li><i></i>Turn your PRD into an Epics and Flows doc</li>
     <li><i></i>Explain why Epic 1 comes first and where the MVP cut line is</li>
     <li><i></i>Judge a screen with 9 good UX rules</li>
     <li><i></i>Start wireframing in Claude Design</li>
@@ -460,10 +393,25 @@ h1 { position: absolute; left: 96px; top: 64px; width: 1728px; font-size: 84px; 
     <div class="card"><small>Principle 1</small><h2>Start with people</h2><p>Design for how people really think and act, not for yourself.</p><div class="ask"><span>Ask yourself</span>Who is this for, and what are they trying to do?</div></div>
     <div class="card"><small>Principle 2</small><h2>Solve the right problem</h2><p>Find what actually needs to get better before you design.</p><div class="ask"><span>Ask yourself</span>What's the one thing this app has to do well?</div></div>
   </div>
-  <aside class="notes">Have them answer both out loud for their own app. Their answers feed the review of their epic map.</aside>
+  <aside class="notes">Have them answer both out loud for their own app. Their answers shape the Epics doc we make today.</aside>
 </section>
 
 <!-- 14 -->
+<section class="slide" aria-label="Build one piece at a time">
+  <h1>Build one piece at a time</h1>
+  <p class="sub">You don't build the whole app at once.</p>
+  <div class="blk" style="left:216px;top:254px"><small>Epic 3</small><b>Depends on Epics 1 and 2</b></div>
+  <div class="blk second" style="left:156px;top:474px"><small>Epic 2</small><b>Depends on Epic 1</b></div>
+  <div class="blk first" style="left:96px;top:694px"><small>Epic 1</small><b>The core loop</b></div>
+  <ol class="pieces">
+    <li><span class="num-block">1</span>Epics split your app into pieces.</li>
+    <li><span class="num-block">2</span>The core loop comes first.</li>
+    <li><span class="num-block">3</span>Each epic builds on the ones before it, and unlocks the next.</li>
+  </ol>
+  <aside class="notes">Nobody builds the whole app at once. Epics split it into pieces. The core loop comes first, because nothing else matters if it doesn't work. Each epic depends on the ones before it and unlocks the next: that's the Depends on and Unlocks columns in the Epics doc. Next, what that looks like for Workout Log.</aside>
+</section>
+
+<!-- 15 -->
 <section class="slide" aria-label="Example: the Workout Log epic map">
   <h1>Example: the Workout Log epic map</h1>
   <div class="epics">
@@ -474,10 +422,10 @@ h1 { position: absolute; left: 96px; top: 64px; width: 1728px; font-size: 84px; 
     <div class="epic later"><small>Epic 4</small><b>Share with friends</b><span class="tag" style="background:#ECEDEF;color:#4B5563">Later</span></div>
   </div>
   <p class="caption">Notice: the core loop comes first. Everything below the line waits.</p>
-  <aside class="notes">Workout Log is a made-up app we'll use in all five lessons. Logging comes first because if it doesn't work, nothing else matters. Sharing is nice, but the app works without it. Soon you'll read your own epic map the same way.</aside>
+  <aside class="notes">Workout Log is a made-up app we'll use in all five sessions. Logging comes first because if it doesn't work, nothing else matters. Sharing is nice, but the app works without it. In a few minutes you'll read your own epic map the same way.</aside>
 </section>
 
-<!-- 15 -->
+<!-- 16 -->
 <section class="slide" aria-label="Good UX in 9 rules">
   <h1>Good UX in 9 rules</h1>
   <p class="sub">Good UX means people can use your app without help.</p>
@@ -492,16 +440,7 @@ h1 { position: absolute; left: 96px; top: 64px; width: 1728px; font-size: 84px; 
     <div class="rule"><div class="num-block">8</div><b>Only what's needed</b></div>
     <div class="rule"><div class="num-block">9</div><b>Works for everyone</b></div>
   </div>
-  <aside class="notes">Don't explain all nine. Pick two or three and give a quick example. The student checks every wireframe against these, and my comments name the rule.</aside>
-</section>
-
-<!-- 16 -->
-<section class="slide" aria-label="Try it">
-  <h1>Try it</h1>
-  <div class="dropin try-frame">Drop in: real app screen</div>
-  <p class="try-say">Find one rule it follows and one it breaks.</p>
-  <p class="try-hint">Use the 9 good UX rules. There's no wrong answer if you can say why.</p>
-  <aside class="notes">Ideas: Duolingo, Headspace, Things 3, Apple Weather or Airbnb. Find a screen on Mobbin. Let them talk first.</aside>
+  <aside class="notes">Don't explain all nine. Pick two or three and give a quick example. We'll come back to these while Claude writes your Epics doc. Use them to guide your wireframes, and my comments name the rule.</aside>
 </section>
 
 <!-- 17 -->
@@ -509,15 +448,19 @@ h1 { position: absolute; left: 96px; top: 64px; width: 1728px; font-size: 84px; 
   <h1>What you'll make today</h1>
   <div class="make">
     <div class="card">
+      <svg viewBox="0 0 96 96" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M24 8h34l18 18v62H24z"/><path d="M58 8v18h18M36 46h28M36 58h28M36 70h18"/></svg>
+      <div><small>Part one</small><h2>Your Epics and Flows doc</h2></div>
+    </div>
+    <div class="card">
       <svg viewBox="0 0 96 96" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="10" y="16" width="34" height="28" rx="6"/><rect x="52" y="16" width="34" height="28" rx="6"/><rect x="10" y="52" width="34" height="28" rx="6"/><path d="M69 56v20M59 66h20"/></svg>
-      <div><small>Part one</small><h2>Your Claude Design project</h2></div>
+      <div><small>Part two</small><h2>Your Claude Design project</h2></div>
     </div>
     <div class="card">
       <svg viewBox="0 0 96 96" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="28" y="8" width="40" height="80" rx="9"/><path d="M42 16h12M38 34h20M38 46h20M38 58h12"/></svg>
-      <div><small>Part two</small><h2>The first screens of your core loop</h2></div>
+      <div><small>Part three</small><h2>The first screens of your core loop</h2></div>
     </div>
   </div>
-  <aside class="notes">Now the slides stop. Next: in one sentence, what does your app help someone do? Who is it for? Then we go through the PRD and epics together.</aside>
+  <aside class="notes">Now the slides stop. Quick check-in: in one sentence, what does your app help someone do, and who is it for? Then we review your PRD and run the Epics prompt together.</aside>
 </section>
 
 </main>
@@ -530,7 +473,7 @@ h1 { position: absolute; left: 96px; top: 64px; width: 1728px; font-size: 84px; 
   <button id="next" aria-label="Next slide">&rarr;</button>
   <button id="toggle-notes">Notes (N)</button>
   <button id="fs">Fullscreen (F)</button>
-  <a href="Built-Young-Lesson-1.pdf" download>Download PDF</a>
+  <a href="Built-Young-Session-1.pdf" download>Download PDF</a>
 </nav>
 
 <script>
@@ -548,7 +491,7 @@ h1 { position: absolute; left: 96px; top: 64px; width: 1728px; font-size: 84px; 
     if (i === 0) return;
     var footer = document.createElement("div");
     footer.className = "footer";
-    footer.innerHTML = '<span class="brand"><img src="assets/by-logo.png" alt="">Built Young</span><span class="num">Lesson 1</span>';
+    footer.innerHTML = '<span class="brand"><img src="assets/by-logo.png" alt="">Built Young</span><span class="num">Session 1</span>';
     var aside = slide.querySelector(".notes");
     slide.insertBefore(footer, aside);
   });

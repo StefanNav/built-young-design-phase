@@ -1,0 +1,539 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Session 2: Test with real people | Built Young</title>
+<link rel="icon" href="assets/by-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+<style>
+:root {
+  --orange: #F79A22; --orange-tint: #FEF1DD; --orange-dark: #DD8108;
+  --navy: #0F1729; --cream: #FBFAF6; --white: #FFFFFF;
+  --teal: #2A9D90; --teal-dark: #1F7A70; --teal-tint: #E4F3F1; --gray: #6B7280; --border: #E5E7EB;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; background: var(--navy); overflow: hidden; }
+body { font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif; color: var(--navy); -webkit-font-smoothing: antialiased; }
+
+/* ---- Stage ---- */
+#stage { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; transform-origin: 0 0; }
+.slide { position: absolute; inset: 0; width: 1920px; height: 1080px; overflow: hidden; background: var(--cream); display: none; }
+.slide.active { display: block; }
+.notes { display: none; }
+p, h1, h2, h3, ul, ol { margin: 0; padding: 0; }
+ul, ol { list-style: none; }
+
+/* ---- Shared slide parts ---- */
+h1 { position: absolute; left: 96px; top: 64px; width: 1728px; font-size: 84px; line-height: 1.1; font-weight: 800; letter-spacing: -2px; }
+.sub { position: absolute; left: 96px; top: 174px; width: 1728px; font-size: 40px; line-height: 1.3; color: var(--gray); }
+.footer { position: absolute; left: 96px; right: 96px; bottom: 22px; height: 52px; display: flex; align-items: center; justify-content: space-between; font-size: 28px; }
+.footer .brand { display: flex; align-items: center; gap: 14px; font-weight: 700; }
+.footer img { width: 48px; height: 48px; object-fit: contain; }
+.footer .num { color: var(--gray); }
+.mark { background: var(--orange); color: var(--navy); border-radius: 18px; padding: 0 20px 6px; margin-left: -6px; display: inline-block; }
+.card { background: var(--white); border: 2px solid var(--border); border-radius: 24px; }
+.num-block { flex: none; display: flex; align-items: center; justify-content: center; border-radius: 12px; font-weight: 800; }
+.arrow { flex: none; display: flex; align-items: center; justify-content: center; color: var(--navy); }
+.arrow svg { width: 48px; height: 32px; }
+.tag { display: inline-block; border-radius: 12px; font-size: 28px; font-weight: 700; padding: 8px 18px; line-height: 1.2; }
+.label { display: block; font-size: 30px; font-weight: 700; color: var(--teal-dark); margin-bottom: 10px; line-height: 1.2; }
+.side-box { position: absolute; right: 96px; top: 254px; width: 560px; height: 640px; border-radius: 28px; background: var(--navy); color: var(--cream); padding: 56px 52px; display: flex; flex-direction: column; justify-content: center; }
+.side-box small { font-size: 36px; font-weight: 700; color: #C9CDD6; display: block; }
+.side-box b { font-size: 66px; font-weight: 800; letter-spacing: -1.4px; line-height: 1.1; color: var(--orange); margin-top: 22px; display: block; }
+
+/* 1 Title */
+.t-label { position: absolute; left: 96px; top: 210px; font-size: 32px; font-weight: 700; letter-spacing: 3px; color: var(--teal-dark); }
+.t-title { position: absolute; left: 96px; top: 278px; width: 1100px; font-size: 124px; line-height: 1.14; font-weight: 800; letter-spacing: -3.5px; }
+.t-promise { position: absolute; left: 96px; top: 760px; width: 960px; font-size: 44px; line-height: 1.3; color: var(--gray); }
+.t-logo { position: absolute; right: 110px; top: 240px; width: 600px; height: 586px; object-fit: contain; }
+
+/* 2 Objectives */
+.obj { position: absolute; left: 96px; top: 280px; width: 1728px; display: flex; flex-direction: column; gap: 52px; }
+.obj li { display: flex; gap: 28px; font-size: 54px; line-height: 1.2; font-weight: 500; }
+.obj i { flex: none; width: 30px; height: 30px; border-radius: 8px; background: var(--orange); margin-top: 18px; }
+
+/* 3 Principles */
+.spotlight { position: absolute; left: 96px; top: 216px; width: 1728px; display: flex; gap: 36px; }
+.spotlight .card { flex: 1; height: 740px; padding: 52px 48px; border-top: 16px solid var(--orange); display: flex; flex-direction: column; }
+.spotlight small { font-size: 30px; font-weight: 600; color: var(--gray); }
+.spotlight h2 { font-size: 62px; font-weight: 800; letter-spacing: -1.3px; line-height: 1.08; margin-top: 8px; }
+.spotlight p { font-size: 40px; line-height: 1.3; margin-top: 26px; color: var(--gray); }
+.spotlight .ask { margin-top: auto; background: var(--orange-tint); border-radius: 18px; padding: 28px 30px; font-size: 40px; font-weight: 700; line-height: 1.22; color: var(--navy); }
+.spotlight .ask span { display: block; font-size: 30px; font-weight: 600; color: #8A4B00; margin-bottom: 6px; }
+
+/* 4 What's a persona */
+.define { position: absolute; left: 96px; top: 300px; width: 1500px; font-size: 76px; line-height: 1.14; font-weight: 800; letter-spacing: -1.8px; }
+.has { position: absolute; left: 96px; top: 690px; width: 1728px; }
+.has small { display: block; font-size: 32px; font-weight: 600; color: var(--gray); margin-bottom: 22px; }
+.chips { display: flex; flex-wrap: wrap; gap: 20px; }
+.chips span { font-size: 38px; font-weight: 700; padding: 20px 30px; border-radius: 18px; background: var(--white); border: 2px solid var(--border); }
+.chips span.think { background: var(--orange-tint); border-color: var(--orange); }
+
+/* 5 and 6 Persona cards */
+.p-id { position: absolute; left: 96px; top: 206px; width: 620px; height: 770px; padding: 48px 44px; display: flex; flex-direction: column; }
+.p-id h2 { font-size: 76px; font-weight: 800; letter-spacing: -1.6px; margin-top: 28px; line-height: 1.05; }
+.p-id .who { font-size: 36px; line-height: 1.3; color: var(--gray); margin-top: 12px; }
+.p-id .quote { margin-top: auto; font-size: 38px; line-height: 1.28; font-weight: 600; border-left: 8px solid var(--orange); padding-left: 26px; }
+.p-id.photo { padding: 0; overflow: hidden; }
+.p-photo { position: relative; flex: none; height: 340px; }
+.p-photo img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; }
+.p-photo .tag { position: absolute; left: 28px; top: 28px; }
+.p-body { flex: 1; display: flex; flex-direction: column; padding: 34px 44px 44px; }
+.p-body h2 { margin-top: 0; }
+.p-fields { position: absolute; left: 752px; top: 206px; width: 1072px; height: 770px; display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+.p-fields > div { padding: 40px 38px; }
+.p-fields p { font-size: 46px; line-height: 1.2; font-weight: 700; letter-spacing: -0.6px; }
+.p-fields .hl { background: var(--orange-tint); border-color: var(--orange); }
+
+/* 7 Design for how they think */
+.think-row { position: absolute; left: 96px; width: 1728px; height: 270px; display: flex; gap: 24px; align-items: stretch; }
+.think-row .who { flex: none; width: 230px; border-radius: 24px; display: flex; align-items: center; justify-content: center; font-size: 52px; font-weight: 800; }
+.think-row .card { flex: 1; padding: 36px 40px; display: flex; flex-direction: column; justify-content: center; }
+.think-row .card p { font-size: 46px; line-height: 1.2; font-weight: 600; }
+.think-row .card.so { background: var(--orange-tint); border-color: var(--orange); }
+.think-row .card.so p { font-weight: 800; }
+.think-row .arrow { width: 56px; }
+.think-row .arrow svg { width: 44px; }
+
+/* 8 Your turn: personas */
+.qs { position: absolute; left: 96px; top: 280px; width: 1060px; display: flex; flex-direction: column; gap: 46px; }
+.qs li { display: flex; gap: 28px; font-size: 56px; line-height: 1.15; font-weight: 700; letter-spacing: -1px; }
+.qs i { flex: none; width: 34px; height: 34px; border-radius: 9px; margin-top: 14px; }
+
+/* 9 Why we test */
+.big-say { position: absolute; left: 96px; top: 300px; width: 1728px; font-size: 112px; line-height: 1.22; font-weight: 800; letter-spacing: -3px; }
+.big-hint { position: absolute; left: 96px; top: 700px; width: 1400px; font-size: 46px; line-height: 1.3; color: var(--gray); }
+
+/* 10 Test steps */
+.tsteps { position: absolute; left: 96px; top: 250px; width: 1728px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 34px; grid-auto-rows: 316px; }
+.tstep { padding: 40px 38px; display: flex; flex-direction: column; justify-content: space-between; }
+.tstep .num-block { width: 72px; height: 72px; background: var(--navy); color: #fff; font-size: 36px; }
+.tstep b { font-size: 50px; line-height: 1.12; font-weight: 800; letter-spacing: -1px; }
+.tstep.key { background: var(--orange-tint); border-color: var(--orange); }
+.tstep.key .num-block { background: var(--orange); color: var(--navy); }
+
+/* 11 Weak vs strong */
+.vs { position: absolute; left: 96px; top: 236px; width: 1728px; display: flex; gap: 36px; }
+.vs .card { flex: 1; height: 600px; padding: 48px; display: flex; flex-direction: column; }
+.vs .say { font-size: 58px; line-height: 1.16; font-weight: 800; letter-spacing: -1.2px; margin-top: 36px; }
+.vs .why { margin-top: auto; padding-top: 30px; border-top: 2px solid var(--border); font-size: 38px; line-height: 1.3; color: var(--gray); }
+.vs .card.weak .say { color: #4B5563; }
+.vs .card.strong { background: var(--orange-tint); border-color: var(--orange); }
+.vs .card.strong .why { border-color: #F5C98B; color: #6B4A16; }
+.rule-line { position: absolute; left: 96px; top: 880px; width: 1728px; font-size: 44px; font-weight: 700; }
+
+/* 12 Stay quiet */
+.huge { position: absolute; left: 96px; top: 230px; font-size: 210px; line-height: 1; font-weight: 800; letter-spacing: -7px; }
+.lead { position: absolute; left: 96px; top: 540px; font-size: 48px; color: var(--gray); }
+.say-box { position: absolute; left: 96px; top: 630px; padding: 40px 56px; border-radius: 28px; background: var(--orange-tint); border: 3px solid var(--orange); font-size: 92px; font-weight: 800; letter-spacing: -2.4px; line-height: 1.1; }
+
+/* 13 Live test */
+.task { position: absolute; left: 96px; top: 216px; width: 1728px; padding: 42px 48px; border-radius: 28px; background: var(--orange-tint); border: 3px solid var(--orange); }
+.task small { display: block; font-size: 32px; font-weight: 700; color: #8A4B00; margin-bottom: 12px; }
+.task p { font-size: 58px; line-height: 1.18; font-weight: 800; letter-spacing: -1.2px; }
+.roles { position: absolute; left: 96px; top: 570px; width: 1728px; display: flex; gap: 36px; }
+.roles .card { flex: 1; padding: 36px 44px; height: 220px; }
+.roles p { font-size: 48px; line-height: 1.18; font-weight: 700; letter-spacing: -0.8px; }
+.link-bar { position: absolute; left: 96px; top: 830px; width: 1728px; height: 116px; border-radius: 24px; background: var(--navy); color: #fff; display: flex; align-items: center; gap: 30px; padding: 0 44px; }
+.link-bar small { font-size: 32px; font-weight: 700; color: var(--orange); }
+.link-bar a { font-size: 50px; font-weight: 700; color: #fff; text-decoration: none; letter-spacing: -0.6px; }
+
+/* 14 What did we notice */
+.notice { position: absolute; left: 96px; top: 300px; width: 1728px; display: flex; flex-direction: column; gap: 112px; }
+.notice li { display: flex; align-items: center; gap: 36px; font-size: 68px; line-height: 1.1; font-weight: 800; letter-spacing: -1.6px; }
+.notice .num-block { width: 96px; height: 96px; background: var(--orange); font-size: 48px; border-radius: 18px; }
+
+/* 15 Epic map */
+.epics { position: absolute; left: 96px; top: 290px; width: 1728px; display: flex; flex-direction: column; gap: 14px; }
+.epic { display: flex; align-items: center; gap: 28px; height: 108px; padding: 0 34px; border-radius: 20px; background: var(--white); border: 2px solid var(--border); }
+.epic small { width: 130px; font-size: 30px; font-weight: 600; color: var(--gray); }
+.epic b { font-size: 44px; font-weight: 800; letter-spacing: -0.9px; flex: 1; }
+.epic.core { background: var(--orange-tint); border-color: var(--orange); }
+.epic.later { background: transparent; border-style: dashed; border-color: #C8CBD1; }
+.epic.later b { color: var(--gray); font-weight: 600; }
+.cut { display: flex; align-items: center; gap: 22px; margin: 8px 0; color: #A65E00; font-size: 32px; font-weight: 700; white-space: nowrap; }
+.cut::after { content: ""; flex: 1; border-top: 5px dashed var(--orange); }
+
+/* 16 Your turn: core flows */
+.pieces { position: absolute; left: 96px; top: 290px; width: 1120px; display: flex; flex-direction: column; gap: 72px; }
+.pieces li { display: flex; align-items: center; gap: 32px; font-size: 58px; line-height: 1.15; font-weight: 700; letter-spacing: -1px; }
+.pieces .num-block { width: 84px; height: 84px; background: var(--navy); color: #fff; font-size: 40px; border-radius: 16px; }
+
+/* 17 Homework */
+.make { position: absolute; left: 96px; top: 270px; width: 1728px; display: flex; gap: 32px; }
+.make .card { flex: 1; height: 650px; padding: 48px; display: flex; flex-direction: column; justify-content: space-between; }
+.make svg { width: 150px; height: 150px; color: var(--navy); }
+.make h2 { font-size: 56px; line-height: 1.1; font-weight: 800; letter-spacing: -1.2px; }
+.make p { font-size: 36px; line-height: 1.3; color: var(--gray); margin-top: 16px; }
+.make small { display: block; font-size: 32px; font-weight: 700; color: var(--teal-dark); margin-bottom: 14px; }
+
+/* ---- Deck controls ---- */
+#bar { position: fixed; left: 50%; bottom: 14px; transform: translateX(-50%); display: flex; align-items: center; gap: 4px; padding: 6px; border-radius: 14px; background: rgba(15,23,41,.92); color: #fff; font-size: 14px; font-weight: 600; z-index: 20; transition: opacity 180ms ease; }
+#bar.idle { opacity: 0; pointer-events: none; }
+#bar button, #bar a { all: unset; cursor: pointer; padding: 9px 13px; border-radius: 9px; white-space: nowrap; }
+#bar button:hover, #bar a:hover { background: rgba(255,255,255,.16); }
+#bar button:focus-visible, #bar a:focus-visible { outline: 2px solid var(--orange); }
+#count { padding: 0 10px; font-variant-numeric: tabular-nums; }
+#notes { position: fixed; left: 50%; bottom: 74px; transform: translateX(-50%); width: min(760px, calc(100vw - 32px)); padding: 18px 22px; border-radius: 14px; background: rgba(15,23,41,.96); color: #fff; font-size: 19px; line-height: 1.45; z-index: 21; display: none; }
+#notes.show { display: block; }
+#notes small { display: block; color: var(--orange); font-size: 13px; font-weight: 700; margin-bottom: 6px; }
+
+/* ---- PDF: one slide per page, no controls ---- */
+@page { size: 1920px 1080px; margin: 0; }
+@media print {
+  html, body { height: auto; overflow: visible; background: none; }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  #stage { position: static; width: 1920px; height: auto; transform: none !important; }
+  .slide { display: block; position: relative; inset: auto; break-after: page; break-inside: avoid; }
+  .slide:last-child { break-after: auto; }
+  #bar, #notes { display: none !important; }
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="right" viewBox="0 0 48 32"><path d="M3 16h40M30 4l13 12-13 12" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+
+<main id="stage">
+
+<!-- 1 -->
+<section class="slide" aria-label="Title">
+  <p class="t-label">BUILT YOUNG, DESIGN PHASE</p>
+  <div class="t-title">Session 2:<br>Test with<br><span class="mark">real people.</span></div>
+  <p class="t-promise">Today you meet your users, then watch someone use your app.</p>
+  <img class="t-logo" src="assets/by-logo.png" alt="Built Young logo">
+  <aside class="notes">Welcome back. Today has two parts. First, personas: who you're designing for. Then testing: watching someone use your app. The slides run all session, with two "Your turn" stops where we work together.</aside>
+</section>
+
+<!-- 2 -->
+<section class="slide" aria-label="Today's objectives">
+  <h1>Today's objectives</h1>
+  <p class="sub">By the end of today, you can...</p>
+  <ul class="obj">
+    <li><i></i>Explain what a persona is</li>
+    <li><i></i>Make a primary persona and one more</li>
+    <li><i></i>Write test tasks as goals</li>
+    <li><i></i>Run a test without helping</li>
+    <li><i></i>Pick the core flows worth testing</li>
+  </ul>
+  <aside class="notes">We'll check these off at the end.</aside>
+</section>
+
+<!-- 3 -->
+<section class="slide" aria-label="Today's principles">
+  <h1>Today's principles</h1>
+  <div class="spotlight">
+    <div class="card"><small>Principle 1</small><h2>Start with people</h2><p>Your user isn't you. Design for how they think.</p><div class="ask"><span>Ask yourself</span>Who is this for, and how do they think?</div></div>
+    <div class="card"><small>Principle 5</small><h2>Test and learn</h2><p>You don't know if it works until someone else tries it.</p><div class="ask"><span>Ask yourself</span>Where did someone get stuck, and why?</div></div>
+  </div>
+  <aside class="notes">Both come from the six principles in Session 1. Personas are how we start with people. Testing is how we learn. Keep both questions in your head all session.</aside>
+</section>
+
+<!-- 4 -->
+<section class="slide" aria-label="What's a persona?">
+  <h1>What's a persona?</h1>
+  <p class="define">A made-up person, based on real people, who stands for a group of your users.</p>
+  <div class="has">
+    <small>Every persona has</small>
+    <div class="chips"><span>Who they are</span><span>Goals</span><span>Needs</span><span>Pain points</span><span class="think">How they think</span></div>
+  </div>
+  <aside class="notes">A persona isn't you, and it isn't everyone. It's one believable person who stands for the people your app is for. Base it on real people you know or have talked to. "How they think" is the part most people skip, and it's the part that matters most for design: the words they use, their habits, and when and where they'd use your app.</aside>
+</section>
+
+<!-- 5 -->
+<section class="slide" aria-label="Meet Maya">
+  <h1>Meet Maya</h1>
+  <div class="card p-id photo">
+    <div class="p-photo">
+      <img src="assets/maya.jpg" alt="Maya sitting in the gym after a workout, phone in one hand, with a soccer ball beside her">
+      <span class="tag" style="background:var(--orange)">Primary persona</span>
+    </div>
+    <div class="p-body">
+      <h2>Maya, 16</h2>
+      <p class="who">Plays soccer and lifts 3 times a week.</p>
+      <p class="quote">"I just want to log it and get back to my set."</p>
+    </div>
+  </div>
+  <div class="p-fields">
+    <div class="card"><span class="label">Goal</span><p>Get stronger before the season.</p></div>
+    <div class="card"><span class="label">Needs</span><p>To log a set in seconds.</p></div>
+    <div class="card"><span class="label">Pain point</span><p>Forgets what she lifted last time.</p></div>
+    <div class="card hl"><span class="label">How she thinks</span><p>In sets and reps, with her phone in one hand.</p></div>
+  </div>
+  <aside class="notes">This is a persona for Workout Log, the example app from Session 1. Maya is the primary persona: the app is built for her first. Read the quote out loud. Notice "How she thinks": sets and reps, phone in one hand, in the middle of a workout. That's going to shape the screens.</aside>
+</section>
+
+<!-- 6 -->
+<section class="slide" aria-label="Meet Sam">
+  <h1>Meet Sam</h1>
+  <div class="card p-id photo">
+    <div class="p-photo">
+      <img src="assets/sam.jpg" alt="Sam sitting in the gym in a hoodie and cap, holding his phone with both hands" style="object-position:50% 20%">
+      <span class="tag" style="background:var(--teal-tint);color:var(--teal-dark)">Second persona</span>
+    </div>
+    <div class="p-body">
+      <h2>Sam, 19</h2>
+      <p class="who">New to the gym this year.</p>
+      <p class="quote" style="border-color:var(--teal)">"I don't even know what I'm supposed to write down."</p>
+    </div>
+  </div>
+  <div class="p-fields">
+    <div class="card"><span class="label">Goal</span><p>Make the gym a habit.</p></div>
+    <div class="card"><span class="label">Needs</span><p>To know what to do next.</p></div>
+    <div class="card"><span class="label">Pain point</span><p>Gives up when an app asks too much.</p></div>
+    <div class="card hl"><span class="label">How he thinks</span><p>In exercises, not sets.</p></div>
+  </div>
+  <aside class="notes">Same app, very different person. A second persona keeps you from designing only for one kind of user. Ask: what would Sam need that Maya doesn't?</aside>
+</section>
+
+<!-- 7 -->
+<section class="slide" aria-label="Design for how they think">
+  <h1>Design for how they think</h1>
+  <p class="sub">Your screens should match how your personas think.</p>
+  <div class="think-row" style="top:300px">
+    <div class="who" style="background:var(--orange)">Maya</div>
+    <div class="card"><p>Logs between sets, with one hand.</p></div>
+    <div class="arrow"><svg><use href="#right"/></svg></div>
+    <div class="card so"><p>Big buttons. Repeat the last set in one tap.</p></div>
+  </div>
+  <div class="think-row" style="top:610px">
+    <div class="who" style="background:var(--teal);color:#fff">Sam</div>
+    <div class="card"><p>Doesn't know what to log.</p></div>
+    <div class="arrow"><svg><use href="#right"/></svg></div>
+    <div class="card so"><p>Suggest a starter workout.</p></div>
+  </div>
+  <aside class="notes">This is why personas matter: how they think becomes how the screens work. It's the Good UX rules "Speaks the user's language" and "Consistent and familiar". Maya says "sets" and "reps", so the app should too. On every screen you make, ask: would Maya get this? Would Sam?</aside>
+</section>
+
+<!-- 8 -->
+<section class="slide" aria-label="Your turn: who are your personas?">
+  <h1>Your turn: who are your personas?</h1>
+  <p class="sub">Start with your primary user, then one more.</p>
+  <ul class="qs">
+    <li><i style="background:var(--orange)"></i>Who are they?</li>
+    <li><i style="background:var(--teal)"></i>What are their goals?</li>
+    <li><i style="background:var(--navy)"></i>What do they need?</li>
+    <li><i style="background:var(--orange-dark)"></i>What gets in their way?</li>
+    <li><i style="background:var(--orange)"></i>How do they think?</li>
+  </ul>
+  <div class="side-box"><small>Then</small><b>Run Prompt 4 in Claude Design.</b></div>
+  <aside class="notes">Talk it through out loud for about 3 minutes, primary persona first. Their PRD already names the main types of user, so start there. Then they attach the PRD and run Prompt 4 in Claude Design, which drafts both persona cards. Read them together. Fix anything that sounds generic, or doesn't sound like a real person.</aside>
+</section>
+
+<!-- 9 -->
+<section class="slide" aria-label="Why we test">
+  <h1>Why we test</h1>
+  <p class="big-say">You know how your app works.<br><span class="mark">Your users don't.</span></p>
+  <p class="big-hint">When people get stuck, they blame themselves. It's almost always the design.</p>
+  <aside class="notes">You've looked at your screens all week, so you can't see them fresh anymore. A test shows you what a first-time user sees. Think of a door with a handle you're supposed to push: people pull it and feel silly, but it's the door's fault.</aside>
+</section>
+
+<!-- 10 -->
+<section class="slide" aria-label="A test in 6 steps">
+  <h1>A test in 6 steps</h1>
+  <div class="tsteps">
+    <div class="card tstep"><span class="num-block">1</span><b>Pick a core flow</b></div>
+    <div class="card tstep"><span class="num-block">2</span><b>Write tasks as goals</b></div>
+    <div class="card tstep"><span class="num-block">3</span><b>Find a tester who matches your persona</b></div>
+    <div class="card tstep"><span class="num-block">4</span><b>Read the script</b></div>
+    <div class="card tstep key"><span class="num-block">5</span><b>Watch, don't help</b></div>
+    <div class="card tstep"><span class="num-block">6</span><b>Write down where they got stuck</b></div>
+  </div>
+  <aside class="notes">About 10 minutes per tester. The script is in the usability test guide on the Session 2 page: "I'm testing the app, not you. Please think out loud." Step 3 is where your personas come back: test with people like Maya and Sam, not just friends who are being nice.</aside>
+</section>
+
+<!-- 11 -->
+<section class="slide" aria-label="Weak task vs strong task">
+  <h1>Weak task vs strong task</h1>
+  <div class="vs">
+    <div class="card weak"><span class="tag" style="background:#ECEDEF;color:#4B5563;align-self:flex-start">Weak</span><p class="say">"Tap the plus button and add a workout."</p><p class="why">It tells them where to tap.</p></div>
+    <div class="card strong"><span class="tag" style="background:var(--orange);align-self:flex-start">Strong</span><p class="say">"You just finished at the gym. Record what you did."</p><p class="why">It gives a goal, in a real moment.</p></div>
+  </div>
+  <p class="rule-line">Don't use the words on your buttons.</p>
+  <aside class="notes">If the task says "tap the plus button," you're testing whether they can follow instructions, not whether your app makes sense. Give them a goal in a real situation, and let them find the way.</aside>
+</section>
+
+<!-- 12 -->
+<section class="slide" aria-label="The hardest part: stay quiet">
+  <h1>The hardest part: stay quiet</h1>
+  <p class="huge">Don't help.</p>
+  <p class="lead">If they ask what to do, say:</p>
+  <p class="say-box">"What would you try?"</p>
+  <aside class="notes">Silence is the tool. You'll want to jump in. Don't. If they're stuck for more than a minute, help them and write it down. Watch what they do more than what they say: people say "it's easy" right after struggling.</aside>
+</section>
+
+<!-- 13 -->
+<section class="slide" aria-label="Let's test it">
+  <h1>Let's test it</h1>
+  <div class="task"><small>The task</small><p>"You just finished at the gym. You did 3 sets of 10 squats. Record what you did."</p></div>
+  <div class="roles">
+    <div class="card"><span class="label">Tester</span><p>Open the link and share your screen.</p></div>
+    <div class="card"><span class="label">Everyone else</span><p>Write down where they pause.</p></div>
+  </div>
+  <div class="link-bar"><small>Link</small><a href="/workout-log" target="_blank" rel="noopener">built-young-design-phase.vercel.app/workout-log</a></div>
+  <aside class="notes">Paste the link in the chat. Pick one tester. They open it and share their screen. Read the script from the test guide, then the task, then stay quiet. Everyone else writes down every pause. Use Restart under the phone to run it again with someone else.</aside>
+</section>
+
+<!-- 14 -->
+<section class="slide" aria-label="What did we notice?">
+  <h1>What did we notice?</h1>
+  <ol class="notice">
+    <li><span class="num-block">1</span>Where did they pause?</li>
+    <li><span class="num-block">2</span>What did they expect to happen?</li>
+    <li><span class="num-block">3</span>What would you change?</li>
+  </ol>
+  <aside class="notes">Ask the tester first, then everyone else. The planted problem: on the sets screen, the biggest button says "Add exercise", and saving is a small grey "Finish" in the corner. It breaks the Good UX rule "Obvious next step". Then open the same link with ?fixed on the end (built-young-design-phase.vercel.app/workout-log?fixed) to show the change: a big "Save workout" button. Test, find, change.</aside>
+</section>
+
+<!-- 15 -->
+<section class="slide" aria-label="Test your core flows">
+  <h1>Test your core flows</h1>
+  <p class="sub">You can't test everything. Start with the flows your app can't work without.</p>
+  <div class="epics">
+    <div class="epic core"><small>Epic 1</small><b>Log a workout</b><span class="tag" style="background:var(--orange)">Test this first</span></div>
+    <div class="epic"><small>Epic 2</small><b>Get started</b></div>
+    <div class="epic"><small>Epic 3</small><b>See your progress</b></div>
+    <div class="cut">MVP cut line</div>
+    <div class="epic later"><small>Epic 4</small><b>Share with friends</b><span class="tag" style="background:#ECEDEF;color:#4B5563">Later</span></div>
+  </div>
+  <aside class="notes">This is the Workout Log epic map from Session 1. Epic 1 is the core loop, so it gets tested first. In this course we only test core flows. If the core loop doesn't work, nothing else matters.</aside>
+</section>
+
+<!-- 16 -->
+<section class="slide" aria-label="Your turn: pick your core flows">
+  <h1>Your turn: pick your core flows</h1>
+  <p class="sub">Which flows will you test?</p>
+  <ol class="pieces">
+    <li><span class="num-block">1</span>Name your core loop.</li>
+    <li><span class="num-block">2</span>Pick the 1 or 2 flows in it.</li>
+    <li><span class="num-block">3</span>Run Prompt 5: your test guide.</li>
+  </ol>
+  <div class="side-box"><small>Check every task</small><b>No button words. No tapping instructions.</b></div>
+  <aside class="notes">Do this together. Open their Epics and Flows doc and find Epic 1. Pick the 1 or 2 flows they can't live without. Then they run Prompt 5 in their Claude Design project. It reads the wireframes and makes a printable test guide with 3 to 5 tasks, a short intro and a notes table. Read every task together against the weak vs strong slide, and edit until none gives away the answer.</aside>
+</section>
+
+<!-- 17 -->
+<section class="slide" aria-label="Your homework">
+  <h1>Your homework</h1>
+  <p class="sub">Due Sunday at 1 PM ET, before Session 3.</p>
+  <div class="make">
+    <div class="card">
+      <svg viewBox="0 0 96 96" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="36" width="22" height="24" rx="5"/><rect x="37" y="36" width="22" height="24" rx="5"/><rect x="68" y="36" width="22" height="24" rx="5"/><path d="M28 48h9M59 48h9"/></svg>
+      <div><small>Step 1</small><h2>Tidy up your flows</h2><p>The flows, not the looks. Stay in grey wireframes.</p></div>
+    </div>
+    <div class="card">
+      <svg viewBox="0 0 96 96" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="34" cy="30" r="12"/><path d="M12 80c0-15 10-25 22-25s22 10 22 25"/><circle cx="68" cy="34" r="10"/><path d="M60 57c2-1 5-2 8-2 11 0 18 10 18 23"/></svg>
+      <div><small>Step 2</small><h2>Test with 2 or 3 people</h2><p>People who match your personas.</p></div>
+    </div>
+    <div class="card">
+      <svg viewBox="0 0 96 96" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 78l4-18 44-44 14 14-44 44z"/><path d="M58 24l14 14"/></svg>
+      <div><small>Step 3</small><h2>Make changes</h2><p>Fix what tripped up your testers.</p></div>
+    </div>
+  </div>
+  <aside class="notes">First, do one more round on your flows until you'd be happy to show someone. Work on the flows, not how they look: stay in grey wireframes until Session 3. Then test with 2 or 3 people who match your personas, and change what tripped them up. To get ready for Session 3, start finding apps with a design you like on Dribbble, Mobbin and Pinterest. The links are in the homework on the Session 2 page. Have them say the homework back to you.</aside>
+</section>
+
+</main>
+
+<div id="notes" role="status"><small></small><span></span></div>
+
+<nav id="bar" aria-label="Deck controls">
+  <button id="prev" aria-label="Previous slide">&larr;</button>
+  <span id="count"></span>
+  <button id="next" aria-label="Next slide">&rarr;</button>
+  <button id="toggle-notes">Notes (N)</button>
+  <button id="fs">Fullscreen (F)</button>
+  <a href="Built-Young-Session-2.pdf" download>Download PDF</a>
+</nav>
+
+<script>
+(function () {
+  var stage = document.getElementById("stage");
+  var slides = Array.prototype.slice.call(document.querySelectorAll(".slide"));
+  var bar = document.getElementById("bar");
+  var notes = document.getElementById("notes");
+  var count = document.getElementById("count");
+  var current = 0;
+  var idleTimer;
+
+  // Same footer on every slide after the title.
+  slides.forEach(function (slide, i) {
+    if (i === 0) return;
+    var footer = document.createElement("div");
+    footer.className = "footer";
+    footer.innerHTML = '<span class="brand"><img src="assets/by-logo.png" alt="">Built Young</span><span class="num">Session 2</span>';
+    var aside = slide.querySelector(".notes");
+    slide.insertBefore(footer, aside);
+  });
+
+  function fit() {
+    var scale = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
+    var x = (window.innerWidth - 1920 * scale) / 2;
+    var y = (window.innerHeight - 1080 * scale) / 2;
+    stage.style.transform = "translate(" + x + "px," + y + "px) scale(" + scale + ")";
+  }
+
+  function show(n) {
+    current = Math.max(0, Math.min(slides.length - 1, n));
+    slides.forEach(function (slide, i) { slide.classList.toggle("active", i === current); });
+    count.textContent = current + 1 + " / " + slides.length;
+    notes.querySelector("small").textContent = "Notes, slide " + (current + 1);
+    notes.querySelector("span").textContent = slides[current].querySelector(".notes").textContent;
+    if (location.hash !== "#" + (current + 1)) history.replaceState(null, "", "#" + (current + 1));
+  }
+
+  function fromHash() {
+    var n = parseInt(location.hash.slice(1), 10);
+    return isNaN(n) ? 0 : n - 1;
+  }
+
+  function wake() {
+    bar.classList.remove("idle");
+    clearTimeout(idleTimer);
+    idleTimer = setTimeout(function () { bar.classList.add("idle"); }, 2500);
+  }
+
+  function toggleNotes() { notes.classList.toggle("show"); }
+  function toggleFullscreen() {
+    if (document.fullscreenElement) document.exitFullscreen();
+    else document.documentElement.requestFullscreen();
+  }
+
+  document.addEventListener("keydown", function (e) {
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    var k = e.key;
+    if (k === "ArrowRight" || k === "ArrowDown" || k === "PageDown" || k === " ") { e.preventDefault(); show(current + 1); }
+    else if (k === "ArrowLeft" || k === "ArrowUp" || k === "PageUp") { e.preventDefault(); show(current - 1); }
+    else if (k === "Home") show(0);
+    else if (k === "End") show(slides.length - 1);
+    else if (k === "n" || k === "N") toggleNotes();
+    else if (k === "f" || k === "F") toggleFullscreen();
+  });
+
+  // Click the left fifth of the window to go back, anywhere else to go forward.
+  // Links on a slide (like the demo link) open without changing the slide.
+  document.addEventListener("click", function (e) {
+    if (e.target.closest("#bar") || e.target.closest("#notes") || e.target.closest("a")) return;
+    show(current + (e.clientX < window.innerWidth * 0.2 ? -1 : 1));
+  });
+
+  document.getElementById("prev").onclick = function () { show(current - 1); };
+  document.getElementById("next").onclick = function () { show(current + 1); };
+  document.getElementById("toggle-notes").onclick = toggleNotes;
+  document.getElementById("fs").onclick = toggleFullscreen;
+  document.addEventListener("mousemove", wake);
+  window.addEventListener("resize", fit);
+  window.addEventListener("hashchange", function () { show(fromHash()); });
+
+  fit();
+  show(fromHash());
+  wake();
+})();
+</script>
+</body>
+</html>

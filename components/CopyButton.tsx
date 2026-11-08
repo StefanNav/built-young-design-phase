@@ -2,7 +2,15 @@
 
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 
-export default function CopyButton({ text }: { text: string }) {
+export default function CopyButton({
+  text,
+  label = "Copy",
+  variant = "primary",
+}: {
+  text: string;
+  label?: string;
+  variant?: "primary" | "secondary";
+}) {
   const [copied, setCopied] = useState(false);
   const [failed, setFailed] = useState(false);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -48,13 +56,22 @@ export default function CopyButton({ text }: { text: string }) {
     fontFamily: "var(--font-sans)",
     whiteSpace: "nowrap",
     transition: "background-color 140ms ease",
-    background: copied ? "var(--by-success-tint)" : "var(--by-navy)",
-    color: copied ? "var(--by-success-ink)" : "#fff",
+    background: copied
+      ? "var(--by-success-tint)"
+      : variant === "secondary"
+        ? "var(--by-surface)"
+        : "var(--by-navy)",
+    color: copied
+      ? "var(--by-success-ink)"
+      : variant === "secondary"
+        ? "var(--by-text)"
+        : "#fff",
+    boxShadow: variant === "secondary" && !copied ? "inset 0 0 0 1px var(--by-border)" : "none",
   };
 
   return (
     <button onClick={onCopy} style={style}>
-      {copied ? "Copied ✓" : failed ? "Couldn't copy" : "Copy"}
+      {copied ? "Copied ✓" : failed ? "Couldn't copy" : label}
     </button>
   );
 }

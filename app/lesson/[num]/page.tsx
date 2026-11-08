@@ -10,6 +10,39 @@ import PromptCard from "@/components/PromptCard";
 
 export const dynamicParams = false;
 
+// Inspiration links, used in "Find inspiration" and in a homework's get-ready list.
+function ResourceLinks({ ids }: { ids: string[] }) {
+  return (
+    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(200px,1fr))", gap: 10 }}>
+      {ids.map((id) => {
+        const r = RESOURCES[id];
+        return (
+          <a
+            key={id}
+            href={r.url}
+            target="_blank"
+            rel="noopener"
+            className="by-lift"
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: 2,
+              textDecoration: "none",
+              padding: "13px 15px",
+              borderRadius: 12,
+              background: "var(--by-surface)",
+              boxShadow: "var(--shadow-hairline)",
+            }}
+          >
+            <span style={{ fontWeight: 600, fontSize: 14.5, color: "var(--by-text)" }}>{r.label} ↗</span>
+            <span style={{ fontSize: 13, lineHeight: 1.4, color: "var(--by-text-muted)" }}>{r.note}</span>
+          </a>
+        );
+      })}
+    </div>
+  );
+}
+
 export function generateStaticParams() {
   return LESSONS.map((l) => ({ num: l.num }));
 }
@@ -22,7 +55,7 @@ export async function generateMetadata({
   const { num } = await params;
   const lesson = LESSONS.find((l) => l.num === num);
   if (!lesson) return {};
-  return { title: `Lesson ${lesson.num}: ${lesson.title} — Built Young`, description: lesson.summary };
+  return { title: `Session ${lesson.num}: ${lesson.title} — Built Young`, description: lesson.summary };
 }
 
 const cardStyle: CSSProperties = {
@@ -48,7 +81,7 @@ const labelStyle: CSSProperties = {
 const GUIDES: Record<GuideId, { title: string; note: string; body: ReactNode }> = {
   "good-ux": {
     title: "Good UX checklist",
-    note: "Nine rules for checking every screen",
+    note: "Nine rules to guide your designs",
     body: <GoodUxChecklist />,
   },
   "test-guide": {
@@ -88,13 +121,13 @@ export default async function LessonPage({ params }: { params: Promise<{ num: st
           textDecoration: "none",
         }}
       >
-        ← All lessons
+        ← All sessions
       </Link>
 
       {/* Header */}
       <div style={{ marginTop: 18 }}>
         <span style={{ fontWeight: 600, fontSize: 13, color: "var(--by-text-muted)" }}>
-          Lesson {l.num} · {l.part} · {l.length}
+          Session {l.num} · {l.part} · {l.length}
         </span>
         <h1
           style={{
@@ -117,8 +150,9 @@ export default async function LessonPage({ params }: { params: Promise<{ num: st
           </strong>{" "}
           {l.leaveWith}
         </p>
+        {/* The PDF downloads from inside the slides, so the page only opens them. */}
         {l.slides && (
-          <div style={{ display: "flex", flexWrap: "wrap", gap: 10, marginTop: 18 }}>
+          <div style={{ display: "flex", marginTop: 18 }}>
             <a
               href={l.slides.href}
               target="_blank"
@@ -127,26 +161,14 @@ export default async function LessonPage({ params }: { params: Promise<{ num: st
             >
               Open slides ↗
             </a>
-            <a
-              href={l.slides.pdf}
-              download
-              style={{
-                ...pagerStyle,
-                background: "var(--by-surface)",
-                color: "var(--by-text)",
-                boxShadow: "var(--shadow-hairline)",
-              }}
-            >
-              Download PDF
-            </a>
           </div>
         )}
       </div>
 
       <div style={{ display: "flex", flexDirection: "column", gap: 16, marginTop: 24 }}>
-        {/* Before this lesson */}
+        {/* Before this session */}
         <section style={cardStyle}>
-          <h2 style={{ ...h2Style, marginBottom: 8 }}>Before this lesson</h2>
+          <h2 style={{ ...h2Style, marginBottom: 8 }}>Before this session</h2>
           <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
             {l.before.map((t, i) => (
               <CheckItem key={i} id={`${l.id}-before-${i}`} text={t} />
@@ -242,43 +264,7 @@ export default async function LessonPage({ params }: { params: Promise<{ num: st
         {l.resourceIds.length > 0 && (
           <section>
             <h2 style={h2Style}>Find inspiration</h2>
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fit,minmax(220px,1fr))",
-                gap: 10,
-              }}
-            >
-              {l.resourceIds.map((id) => {
-                const r = RESOURCES[id];
-                return (
-                  <a
-                    key={id}
-                    href={r.url}
-                    target="_blank"
-                    rel="noopener"
-                    className="by-lift"
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      gap: 2,
-                      textDecoration: "none",
-                      padding: "13px 15px",
-                      borderRadius: 12,
-                      background: "var(--by-surface)",
-                      boxShadow: "var(--shadow-hairline)",
-                    }}
-                  >
-                    <span style={{ fontWeight: 600, fontSize: 14.5, color: "var(--by-text)" }}>
-                      {r.label} ↗
-                    </span>
-                    <span style={{ fontSize: 13, lineHeight: 1.4, color: "var(--by-text-muted)" }}>
-                      {r.note}
-                    </span>
-                  </a>
-                );
-              })}
-            </div>
+            <ResourceLinks ids={l.resourceIds} />
           </section>
         )}
 
@@ -308,12 +294,17 @@ export default async function LessonPage({ params }: { params: Promise<{ num: st
 
           {l.homework.getReady && next && (
             <>
-              <h3 style={labelStyle}>Get ready for Lesson {next.num}</h3>
+              <h3 style={labelStyle}>Get ready for Session {next.num}</h3>
               <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
                 {l.homework.getReady.map((t, i) => (
                   <CheckItem key={i} id={`${l.id}-ready-${i}`} text={t} />
                 ))}
               </div>
+              {l.homework.getReadyLinks && (
+                <div style={{ marginTop: 10 }}>
+                  <ResourceLinks ids={l.homework.getReadyLinks} />
+                </div>
+              )}
             </>
           )}
 
@@ -322,32 +313,40 @@ export default async function LessonPage({ params }: { params: Promise<{ num: st
             {l.homework.submit}
           </p>
 
-          <h3 style={labelStyle}>Designer question</h3>
-          <p style={{ font: "400 15px/1.5 var(--font-sans)", color: "var(--by-navy)", margin: 0 }}>
-            Answer this in Slack: &ldquo;{l.homework.question}&rdquo;
-          </p>
+          {l.homework.question && (
+            <>
+              <h3 style={labelStyle}>Designer question</h3>
+              <p style={{ font: "400 15px/1.5 var(--font-sans)", color: "var(--by-navy)", margin: 0 }}>
+                Answer this in Slack: &ldquo;{l.homework.question}&rdquo;
+              </p>
+            </>
+          )}
 
-          <h3 style={labelStyle}>Stretch (optional)</h3>
-          <p style={{ font: "400 15px/1.5 var(--font-sans)", color: "var(--by-navy)", margin: 0 }}>
-            {l.homework.stretch}
-          </p>
+          {l.homework.stretch && (
+            <>
+              <h3 style={labelStyle}>Stretch (optional)</h3>
+              <p style={{ font: "400 15px/1.5 var(--font-sans)", color: "var(--by-navy)", margin: 0 }}>
+                {l.homework.stretch}
+              </p>
+            </>
+          )}
         </section>
 
         {/* Next and previous */}
         <nav
-          aria-label="Lessons"
+          aria-label="Sessions"
           style={{ display: "flex", justifyContent: "space-between", gap: 12, flexWrap: "wrap" }}
         >
           {prev ? (
             <Link href={`/lesson/${prev.num}`} style={{ ...pagerStyle, background: "var(--by-surface)", color: "var(--by-text)", boxShadow: "var(--shadow-hairline)" }}>
-              ← Lesson {prev.num}
+              ← Session {prev.num}
             </Link>
           ) : (
             <span />
           )}
           {next ? (
             <Link href={`/lesson/${next.num}`} style={{ ...pagerStyle, background: "var(--by-navy)", color: "#fff" }}>
-              Next: Lesson {next.num}, {next.title} →
+              Next: Session {next.num}, {next.title} →
             </Link>
           ) : (
             <p style={{ font: "500 14.5px/1.5 var(--font-sans)", color: "var(--by-text-muted)", margin: 0, flex: "1 1 240px", textAlign: "right" }}>

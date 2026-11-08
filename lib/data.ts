@@ -4,12 +4,12 @@
 
 export type Prompt = {
   id: string;
-  label: string; // the playbook's number, e.g. "Prompt 3"
+  label: string; // the number students see, e.g. "Prompt 3"
   title: string;
   tool: string;
   howTo?: string;
   body: string;
-  attachment?: { title: string; body: string };
+  download?: { label: string; href: string };
 };
 
 export type ResourceLink = { label: string; url: string; note: string };
@@ -31,85 +31,18 @@ export type Lesson = {
   ifNeeded?: { title: string; promptIds: string[] };
   guides: GuideId[];
   resourceIds: string[];
-  slides?: { href: string; pdf: string };
+  slides?: { href: string };
   homework: {
     due: string;
     task: string;
     doneWhen: string[];
     getReady?: string[];
+    getReadyLinks?: string[]; // resource ids shown under the get-ready list
     submit: string;
-    question: string;
-    stretch: string;
+    question?: string;
+    stretch?: string;
   };
 };
-
-const EPICS_TEMPLATE = `# [App name]: Epics and Flows
-
-Owner: [student name] · Last updated: [date]
-Links: [PRD] · [Wireframes] · [Repo]
-
-## Epic map
-
-| # | Epic | Goal | Depends on | Unlocks | MVP? |
-|---|------|------|------------|---------|------|
-| 1 | [Core loop] | [What the user can do] | None | [2, 3] | Yes |
-| 2 | | | | | |
-
-MVP cut line: Epics 1 to [X] ship in the first version. Everything after is Later.
-
----
-
-## Epic 1: [Name]
-
-Goal: [One sentence: what the user can do when this epic is done]
-Why it's here: [Core loop / needed by epics X and Y]
-Depends on: [Epics, or none]
-Unlocks: [Epics]
-
-### Flow 1.1: [Name]
-
-Entry point: [Where the user starts, e.g., home screen, notification]
-Done when: [What success looks like for the user]
-
-User stories (tag each MVP or Later)
-- [MVP] As a [user], I want to [action] so that [outcome].
-- [Later] As a [user], I want to [action] so that [outcome].
-
-Steps
-1. [Screen name]: [What the user sees]. The user [does what].
-2. [Screen name]: ...
-3. ...
-
-Key features on this flow
-- [Feature]: [what it does]
-
-States to design
-- [ ] First-time or empty
-- [ ] Loading
-- [ ] Error
-- [ ] Success
-
-Open questions
-- [Question]
-
-### Flow 1.2: [Name]
-[Same structure]
-
----
-
-## Epic 2: [Name]
-[Same structure]
-
----
-
-## Decision log
-
-| Date | Decision | Why |
-|------|----------|-----|
-| | [e.g., Moved sharing to Later] | [Not needed to get the core value] |
-
-## Suggestions (not in scope yet)
-- [Ideas that came up. Move into an epic only after a decision.]`;
 
 export const PROMPTS: Prompt[] = [
   {
@@ -156,9 +89,8 @@ Style rules:
     label: "Prompt 2",
     title: "Epics and Flows",
     tool: "Claude",
-    howTo:
-      "Run this once the PRD is clean. Attach the PRD and paste the template below where marked.",
-    body: `Here is the PRD for my app. Help me turn it into an Epics and Flows doc that breaks the product into what we'll design and build, in order.
+    howTo: "Download the template, then attach it and your PRD, and paste this.",
+    body: `I've attached the PRD for my app and the Epics and Flows template. Help me turn the PRD into an Epics and Flows doc that breaks the product into what we'll design and build, in order.
 
 Definitions:
 - Epic: a major capability the user gains (e.g., "Log a workout"). Each epic contains 1 to 3 user flows.
@@ -186,14 +118,13 @@ For each epic, give:
 
 Start with an epic map table. Then propose an MVP cut line: the smallest set of epics that lets a real user get the core value.
 
-Follow this structure:
-[PASTE THE EPICS TEMPLATE HERE]
+Follow the structure in the attached template.
 
 Rules:
 - Only include features from the PRD. If you think something is missing, list it under Suggestions at the end, not in the epics.
 - Keep the language plain and short.
 - Flag anything the PRD leaves unclear instead of guessing.`,
-    attachment: { title: "Epics and Flows template", body: EPICS_TEMPLATE },
+    download: { label: "Download template", href: "/templates/epics-and-flows-template.md" },
   },
   {
     id: "p3",
@@ -214,46 +145,50 @@ Rules:
 - Stay consistent with the screens from earlier epics.`,
   },
   {
-    id: "p4",
+    id: "p-personas",
     label: "Prompt 4",
-    title: "Draft test tasks",
-    tool: "Claude",
-    howTo: "Paste the user stories for the flows you're testing.",
-    body: `I'm going to run a usability test on my app prototype. Here are the user stories for the flows I'm testing:
+    title: "Personas",
+    tool: "Claude Design",
+    howTo:
+      "Attach your PRD, change the bracket in the first line to fit your app, and paste this.",
+    body: `I'm designing a [mobile, desktop or web] app. I've attached my PRD. Make 2 personas for it: my primary user first, then one more type of user who would use the app differently.
 
-[PASTE USER STORIES FROM YOUR EPICS DOC]
+If my PRD leaves out something important, ask me up to 3 questions first. Give 2 or 3 suggested answers for each, and mark the one you recommend. Otherwise, start designing.
 
-Write 3 test tasks I can read out to a tester.
-- Each task is a goal in a realistic situation, not instructions.
-- Don't use the words on my buttons or screens.
-- Put them in the order a real user would do them.
+Make each persona a card with:
+- Name, age, and a one-line quote in their own words
+- Who they are, in one sentence
+- Goals
+- Needs
+- Pain points
+- How they think: the words they use, and when and where they'd use my app
 
-Weak task: "Tap the plus button and add a workout."
-Strong task: "You just finished at the gym. Record what you did."
+Keep each section to one or two short lines. Base everything on my PRD and my answers. Made-up details like names should feel real, but don't change who the app is for.
 
-Then point out any task that might give away the answer.`,
+Keep the cards grayscale and simple, side by side on one page.`,
   },
   {
-    id: "p5",
+    id: "p-usability-test",
     label: "Prompt 5",
-    title: "Test notes to findings",
-    tool: "Claude",
-    howTo: "For homework. Paste your notes, or attach photos of them.",
-    body: `I tested my app with [number] people. Here are my notes from each test:
+    title: "Usability test",
+    tool: "Claude Design",
+    howTo:
+      "Run this in your Claude Design project. It reads your wireframes and makes a printable test guide.",
+    body: `Create a usability test for the main flows in this canvas. If it has more than one epic, ask me which one to test. I'll run it myself, one tester at a time.
 
-[PASTE NOTES, OR ATTACH PHOTOS OF THEM]
+Read the wireframes first so the test fits what's actually clickable.
 
-Turn them into a findings table with these columns:
-Issue | Flow and screen | How many testers hit it | Severity | Suggested fix
+- Write one task per main flow, 3 to 5 tasks in total, in the order things happen in real life. Each task is a goal in a realistic situation, not instructions.
+- Don't use words from the buttons or headings, and don't name what to tap or pick.
+- Give each task the details a tester needs to finish (a day, a time), chosen so they lead to the clickable path.
+- For me only: who the tester is playing, the start and done screens, anything on the path that won't click, and what to say when they hit it.
 
-Severity:
-- Blocker: couldn't finish the task
-- Major: finished, but struggled or needed help
-- Minor: a small pause or annoyance
+Weak: "Tap the plus button and add a workout."
+Strong: "You just finished at the gym: 3 sets of 8 squats at 135 lb. Record what you did."
 
-Sort by severity, then by how many testers hit it. Only use what's in my notes. Don't guess.
+Keep it to what I need during the session: a short intro, the tasks, one follow-up question per task, and a notes table. Then check each task for giveaways and fix them.
 
-Then ask me which fixes I want to make first, and why.`,
+Make it a printable PDF guide: an overview page with the intro, one page per task, the giveaway check, and the notes table on the last page so I can print it once per tester. Shade everything I read out loud.`,
   },
   {
     id: "p6",
@@ -415,34 +350,35 @@ export const LESSONS: Lesson[] = [
     part: "Make it work",
     title: "From idea to wireframes",
     length: "75 min",
-    summary: "Wireframe every epic in Claude Design, using good UX rules.",
+    summary: "Turn your PRD into epics, then wireframe them in Claude Design.",
     leaveWith:
-      "A reviewed PRD and Epics doc, the good UX rules, a Claude Design project, and the first screens of your core loop.",
+      "A reviewed PRD, an Epics and Flows doc, the good UX rules, a Claude Design project, and the first screens of your core loop.",
     before: [
       "Get Claude Pro or Max (Pro is the minimum) and check you can open Claude Design",
       "Get set up in Slack",
-      "Share your PRD and Epics doc from Phase 1 with your coach, at least 24 hours before",
+      "Share your PRD from Phase 1 with your coach by Sunday at 1 PM ET",
+      "Have your PRD downloaded and Claude open when the session starts",
     ],
     plan: [
       {
         title: "See the whole course",
-        note: "Meet your coach and learn the design process, the designer principles, and how to spot AI slop.",
+        note: "Meet your coach and learn the design process and the designer principles.",
       },
       {
         title: "Check in",
         note: "Say in one sentence what your app helps someone do, and who it's for.",
       },
       {
-        title: "Review your PRD and epics",
-        note: "Why is Epic 1 first? Where's the MVP cut line? You direct Claude to fix any gaps.",
+        title: "Review your PRD",
+        note: "You direct Claude to fix any gaps, and you decide when Claude recommends something.",
       },
       {
-        title: "Learn what good UX is",
-        note: "Try the Good UX checklist on a real app screen. Find a rule it follows and a rule it breaks.",
+        title: "Break it into epics",
+        note: "Run Prompt 2 with the template. While Claude writes, learn what good UX is with the Good UX checklist. Then read your epic map: why is Epic 1 first, and where's the MVP cut line?",
       },
       {
         title: "Start wireframing",
-        note: "Set up a Claude Design project, attach your docs, and run Prompt 3 for Epic 1.",
+        note: "Download your PRD and Epics doc as Markdown. Open Claude, then Artifacts, then Design. Attach both and run Prompt 3 for Epic 1.",
       },
       {
         title: "Lock your homework",
@@ -453,30 +389,26 @@ export const LESSONS: Lesson[] = [
       { name: "Start with people", line: "Who is this for, and what are they trying to do?" },
       { name: "Solve the right problem", line: "What's the one thing this app has to do well?" },
     ],
-    promptIds: ["p3"],
+    promptIds: ["p2", "p3"],
     ifNeeded: {
-      title: "If you don't have a PRD or Epics doc yet",
-      promptIds: ["p1", "p2"],
+      title: "If you don't have a PRD yet",
+      promptIds: ["p1"],
     },
     guides: ["good-ux"],
     resourceIds: [],
     slides: {
       href: "/decks/lesson-1/index.html",
-      pdf: "/decks/lesson-1/Built-Young-Lesson-1.pdf",
     },
     homework: {
-      due: "At least 24 hours before Lesson 2",
+      due: "Sunday at 1 PM ET, before Session 2",
       task: "Wireframe every epic in your Epics doc in Claude Design, starting with the core loop.",
       doneWhen: [
         "Every epic is wireframed, and every flow clicks through from start to finish",
         "Each flow has its first-time, loading, error and success screens",
         "You tried 2 different layouts for your core loop's main screen, and picked one",
-        "You checked every screen against the Good UX checklist",
+        "You used the Good UX checklist to guide your designs",
       ],
       submit: "Share your Claude Design project with your coach.",
-      question: "Which layout did you pick for your main screen, and why?",
-      stretch:
-        "In a separate Claude Design project, explore 2 or 3 design system directions for your app. Keep your wireframes grayscale for now.",
     },
   },
   {
@@ -485,62 +417,64 @@ export const LESSONS: Lesson[] = [
     part: "Make it work",
     title: "Test with real people",
     length: "60 min",
-    summary: "Run a usability test, and choose what to test.",
+    summary: "Make personas, then test your core flows with real people.",
     leaveWith:
-      "A plan for which review comments to act on, 3 test tasks, a practice test under your belt, and a plan for who to test with.",
+      "Your primary persona and one more, a live test you watched, the core flows you'll test, and a printable test guide.",
     before: [
-      "Wireframe every epic and share your Claude Design project with your coach, at least 24 hours before",
-      "Answer the designer question in Slack",
+      "Wireframe every epic and share your Claude Design project with your coach by Sunday at 1 PM ET",
     ],
     plan: [
       {
-        title: "Why we test",
-        note: "See what to test first and what a test looks like.",
+        title: "Meet personas",
+        note: "Learn what a persona is, and see how Workout Log's personas shape its screens.",
       },
       {
-        title: "Go through your coach's comments",
-        note: "Click through your prototype as your user. You decide what to change, then direct Claude Design to fix the top one.",
+        title: "Make your personas",
+        note: "Brainstorm your primary user and one more, then run Prompt 4 in Claude Design.",
       },
       {
-        title: "Choose what to test",
-        note: "The core loop first, then anything new, risky or still being debated.",
+        title: "How to run a test",
+        note: "The 6 steps, weak vs strong tasks, and why you don't help.",
       },
       {
-        title: "Write the tasks",
-        note: "Run Prompt 4, then edit until no task gives away the answer.",
+        title: "Live test",
+        note: "Watch a test on the Workout Log demo, then talk through what we noticed.",
       },
       {
-        title: "Run a practice test",
-        note: "Test your coach with the test guide, then talk through what you noticed.",
+        title: "Pick your core flows",
+        note: "Choose the 1 or 2 flows your app can't work without, then run Prompt 5 in Claude Design to make your test guide.",
       },
       {
-        title: "Plan and lock your homework",
-        note: "Pick your 3 testers, at least 1 of them a real target user. Say the homework back to your coach.",
+        title: "Lock your homework",
+        note: "Say the homework back to your coach, and pick who you'll test with.",
       },
     ],
     mindset: [
-      { name: "Start with people", line: "Your user isn't you. Watch, ask and listen." },
+      { name: "Start with people", line: "Your user isn't you. Design for how they think." },
       { name: "Test and learn", line: "You don't know if it works until someone else tries it." },
     ],
-    promptIds: ["p4", "p5"],
+    promptIds: ["p-personas", "p-usability-test"],
     guides: ["test-guide", "good-ux"],
-    resourceIds: ["pinterest", "mobbin"],
+    resourceIds: [],
+    slides: {
+      href: "/decks/session-2/index.html",
+    },
     homework: {
-      due: "At least 24 hours before Lesson 3",
-      task: "Make the changes you chose from our review, then test your app with 3 people using the test guide. At least 1 should be a real target user.",
+      due: "Sunday at 1 PM ET, before Session 3",
+      task: "Tidy up your flows and do one more round on them, then test with 2 or 3 people who match your personas, and make changes from what you find.",
       doneWhen: [
-        "You've made the changes you chose from your coach's comments",
-        "You've run 3 tests, with a notes table for each person",
-        "You've turned your notes into a findings table with Prompt 5",
-        "You've fixed anything that stopped someone from finishing a task",
+        "Your core flows click through from start to finish, and you'd be happy to show someone",
+        "You worked on the flows, not the looks, and stayed in grey wireframes",
+        "You've tested with 2 or 3 people who match your personas, with notes for each",
+        "You've changed what tripped up your testers",
       ],
       getReady: [
-        "Make a free Pinterest account and save 10 to 15 images that feel like your app: other apps, places, objects and colors",
+        "Start finding apps with a design you like and want to go with. Browse Dribbble and Mobbin",
+        "Make a free Pinterest account and save 10 to 15 images that feel like your app: apps you found, places, objects and colors",
       ],
+      getReadyLinks: ["dribbble", "mobbin", "pinterest"],
       submit:
-        "Share your updated Claude Design project with your coach, and post your findings table and Pinterest board in Slack.",
-      question: "Where did someone get stuck, and why do you think it happened?",
-      stretch: "Find 3 apps your users already like on Mobbin, and note one thing each does well.",
+        "Share your updated Claude Design project with your coach, and post your test notes and Pinterest board in Slack.",
     },
   },
   {
@@ -553,9 +487,9 @@ export const LESSONS: Lesson[] = [
     leaveWith:
       "Clear takeaways from testing, feeling words for your app, a chosen art direction, a design system, and your main screen in hi-fi.",
     before: [
-      "Run 3 tests, make a findings table and fix the blockers",
+      "Test with 2 or 3 people, and make changes from what you found",
       "Save 10 to 15 images to a Pinterest board",
-      "Share everything at least 24 hours before, and answer the designer question in Slack",
+      "Share everything by Sunday at 1 PM ET",
     ],
     plan: [
       {
@@ -563,8 +497,8 @@ export const LESSONS: Lesson[] = [
         note: "See how to read test results, what art direction means, and what makes a screen look good.",
       },
       {
-        title: "Walk through your findings",
-        note: "Go through your findings table and fixes, then your coach's comments.",
+        title: "Walk through your test results",
+        note: "Go through what your testers did and what you changed, then your coach's comments.",
       },
       {
         title: "Pick your feeling words",
@@ -598,7 +532,7 @@ export const LESSONS: Lesson[] = [
     guides: [],
     resourceIds: ["pinterest", "mobbin", "variant", "dribbble"],
     homework: {
-      due: "At least 24 hours before Lesson 4",
+      due: "Sunday at 1 PM ET, before Session 4",
       task: 'Apply your design system to every screen, then design your logo with Prompt 8. To start, tell Claude Design: "Apply the design system to every screen. Keep the layouts and flows the same."',
       doneWhen: [
         "Every screen uses the design system's colors, fonts and spacing, with the layouts and flows unchanged",
@@ -627,7 +561,7 @@ export const LESSONS: Lesson[] = [
     leaveWith:
       "Your app running in Claude Code, demo navigation, your first fix specced and built the right way, and a repo your coach can review.",
     before: [
-      "Apply the design system to every screen, make a logo, and share your Claude Design project with your coach, at least 24 hours before",
+      "Apply the design system to every screen, make a logo, and share your Claude Design project with your coach by Sunday at 1 PM ET",
       "Answer the designer question in Slack",
       "Have a GitHub account, and Anthropic's design, engineering and product management plugins installed",
       "For a mobile app on a Mac: install Xcode",
@@ -672,7 +606,7 @@ export const LESSONS: Lesson[] = [
     guides: ["premium"],
     resourceIds: ["mobbin", "dribbble"],
     homework: {
-      due: "At least 24 hours before Lesson 5",
+      due: "Sunday at 1 PM ET, before Session 5",
       task: "Run the audit with Prompt 11, then polish the app: fix the comments from our review and the front-end gaps the audit finds, one spec at a time.",
       doneWhen: [
         "The audit's build plan is saved in your docs folder",
@@ -694,7 +628,7 @@ export const LESSONS: Lesson[] = [
     leaveWith:
       "Answers to your questions, a premium checklist to keep polishing with, one animation with a clear job, and a handoff note for the engineer.",
     before: [
-      "Push your latest code to GitHub, at least 24 hours before",
+      "Push your latest code to GitHub by Sunday at 1 PM ET",
       "Answer the designer question in Slack",
     ],
     plan: [
@@ -727,7 +661,7 @@ export const LESSONS: Lesson[] = [
     guides: ["premium"],
     resourceIds: ["mobbin", "dribbble"],
     homework: {
-      due: "Before your first session with the engineer",
+      due: "Sunday at 1 PM ET, before your first session with the engineer",
       task: "Fix the comments from our review, one spec at a time, and keep your handoff note up to date.",
       doneWhen: [
         "Every GitHub issue from the review is closed, or has a reason it's still open",
@@ -871,11 +805,11 @@ export const MOTION_BASICS = [
 
 export const TEST_GUIDE = {
   intro:
-    "A usability test means watching someone use your app to see where they get stuck. It takes about 10 minutes per person. Test with 3 people.",
-  who: "People who would actually use your app. Family counts if they're the kind of person it's for.",
+    "A usability test means watching someone use your app to see where they get stuck. It takes about 10 minutes per person. Test with 2 or 3 people.",
+  who: "People who match your personas. Family counts if they fit.",
   need: [
     "Your prototype, open on a phone or computer",
-    "3 tasks (Prompt 4 helps you write them)",
+    "Your test guide from Prompt 5, printed once per tester",
     "The notes table below",
     "If you want to record, ask first",
   ],

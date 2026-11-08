@@ -9,6 +9,8 @@ const nextConfig: NextConfig = {
       { source: "/prompts", destination: "/", permanent: false },
       { source: "/resources", destination: "/", permanent: false },
       { source: "/walkthrough", destination: "/lesson/2", permanent: false },
+      // Short link for the Session 2 live usability test. ?fixed passes through.
+      { source: "/workout-log", destination: "/decks/session-2/demo/index.html", permanent: false },
     ];
   },
 };

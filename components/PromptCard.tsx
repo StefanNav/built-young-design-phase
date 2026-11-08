@@ -14,34 +14,38 @@ const preStyle: CSSProperties = {
   borderTop: "1px solid var(--by-border)",
 };
 
+const downloadStyle: CSSProperties = {
+  textDecoration: "none",
+  borderRadius: 9,
+  padding: "8px 14px",
+  fontWeight: 600,
+  fontSize: 13,
+  whiteSpace: "nowrap",
+  background: "var(--by-navy)",
+  color: "#fff",
+};
+
 export default function PromptCard({ prompt: p }: { prompt: Prompt }) {
+  // A prompt with a file to download leads with the download, then the copy.
+  const actions = p.download && (
+    <>
+      <a href={p.download.href} download style={downloadStyle}>
+        ↓ {p.download.label}
+      </a>
+      <CopyButton text={p.body} label="Copy prompt" variant="secondary" />
+    </>
+  );
+
   return (
     <Disclosure
       title={p.title}
       tag={p.label}
       badge={p.tool}
       note={p.howTo}
-      aside={<CopyButton text={p.body} />}
+      aside={p.download ? undefined : <CopyButton text={p.body} />}
+      actions={actions}
     >
       <pre style={preStyle}>{p.body}</pre>
-      {p.attachment && (
-        <>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              gap: 12,
-              padding: "12px 18px",
-              borderTop: "1px solid var(--by-border)",
-            }}
-          >
-            <span style={{ fontWeight: 700, fontSize: 14 }}>{p.attachment.title}</span>
-            <CopyButton text={p.attachment.body} />
-          </div>
-          <pre style={preStyle}>{p.attachment.body}</pre>
-        </>
-      )}
     </Disclosure>
   );
 }
