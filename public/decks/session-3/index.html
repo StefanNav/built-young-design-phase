@@ -8,14 +8,14 @@
 <link rel="icon" href="assets/by-logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Barlow+Condensed:wght@600;700;800&family=Nunito:wght@600;700;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,800&display=swap">
 <style>
 :root {
   --orange: #F79A22; --orange-tint: #FEF1DD; --orange-dark: #DD8108;
   --navy: #0F1729; --cream: #FBFAF6; --white: #FFFFFF;
   --teal: #2A9D90; --teal-dark: #1F7A70; --teal-tint: #E4F3F1; --gray: #6B7280; --border: #E5E7EB;
-  /* The example "Power" art direction for Workout Log */
-  --volt: #E3F542; --ink: #121417; --ink-2: #1D2025; --ink-muted: #9BA1A6; --track: #C2432E; --chalk: #EEEEEA;
+  /* The example "Power" art direction: dark, bold and orange */
+  --main: #FF6B1A; --ink: #121417; --ink-2: #1D2025; --ink-muted: #9BA1A6; --steel: #3A3D42; --chalk: #EEEEEA;
 }
 * { box-sizing: border-box; }
 html, body { margin: 0; height: 100%; background: var(--navy); overflow: hidden; }
@@ -83,44 +83,11 @@ h1 { position: absolute; left: 96px; top: 64px; width: 1728px; font-size: 84px; 
 .duo h2 { font-size: 56px; font-weight: 800; letter-spacing: -1.2px; line-height: 1.1; }
 .duo p { font-size: 38px; line-height: 1.3; color: var(--gray); margin-top: 12px; }
 
-/* 7 Same idea, your app */
-.phones { position: absolute; left: 96px; top: 250px; width: 1728px; display: flex; gap: 84px; }
-.phone-col { width: 520px; display: flex; flex-direction: column; gap: 16px; }
-.phone-col .tag { align-self: flex-start; }
-.phone { height: 640px; border-radius: 40px; padding: 38px 36px; overflow: hidden; display: flex; flex-direction: column; border: 3px solid; }
-.ap-name { font-size: 24px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; }
-.ap-hi { font-size: 54px; font-weight: 700; line-height: 1.1; margin-top: 16px; }
-.ap-card { margin-top: 28px; padding: 26px 28px; }
-.ap-k { display: block; font-size: 24px; font-weight: 600; }
-.ap-big { display: block; font-size: 38px; font-weight: 700; line-height: 1.2; margin-top: 6px; }
-.ap-small { display: block; font-size: 28px; margin-top: 4px; }
-.ap-btn { margin-top: 28px; height: 96px; display: flex; align-items: center; justify-content: center; font-size: 34px; font-weight: 700; }
-.ap-list { margin-top: 30px; }
-.ap-row { display: flex; justify-content: space-between; align-items: center; height: 64px; margin-top: 8px; font-size: 28px; font-weight: 600; }
-
-.phone.wire { background: #FFFFFF; border-color: #D1D5DB; color: #374151; }
-.wire .ap-name, .wire .ap-k, .wire .ap-row span:last-child { color: #6B7280; }
-.wire .ap-card { background: #F3F4F6; border-radius: 12px; }
-.wire .ap-btn { background: #9CA3AF; color: #FFFFFF; border-radius: 12px; }
-.wire .ap-row { border-bottom: 2px solid #E5E7EB; }
-
-.phone.power { background: var(--ink); border-color: var(--ink); color: #FFFFFF; }
-.power .ap-name { color: var(--volt); font-family: "Barlow Condensed", sans-serif; font-size: 28px; letter-spacing: 4px; }
-.power .ap-hi { font-family: "Barlow Condensed", sans-serif; font-weight: 800; font-size: 76px; line-height: 1; text-transform: uppercase; }
-.power .ap-card { background: var(--ink-2); border-radius: 6px; border-left: 8px solid var(--volt); }
-.power .ap-k, .power .ap-row span:last-child { color: var(--ink-muted); text-transform: uppercase; letter-spacing: 1px; }
-.power .ap-big { font-family: "Barlow Condensed", sans-serif; font-weight: 800; font-size: 46px; text-transform: uppercase; }
-.power .ap-btn { background: var(--volt); color: var(--ink); border-radius: 6px; font-family: "Barlow Condensed", sans-serif; font-weight: 800; font-size: 40px; text-transform: uppercase; letter-spacing: 1px; }
-.power .ap-row { border-bottom: 2px solid #2A2E34; }
-
-.phone.fresh { background: #FFF6EE; border-color: #F3DFCC; color: #2B2420; font-family: "Nunito", sans-serif; }
-.fresh .ap-name { color: #75655A; letter-spacing: 0; text-transform: none; font-size: 26px; }
-.fresh .ap-hi { font-weight: 800; }
-.fresh .ap-card { background: #FFFFFF; border-radius: 28px; box-shadow: 0 10px 28px rgba(120, 72, 32, .12); }
-.fresh .ap-k, .fresh .ap-row span:last-child { color: #75655A; }
-.fresh .ap-big { font-weight: 800; }
-.fresh .ap-btn { background: #FF7A59; color: #2B1A12; border-radius: 999px; font-weight: 800; }
-.fresh .ap-row { background: #FFFFFF; border-radius: 18px; padding: 0 22px; }
+/* 7 Same screen, three looks */
+.apps { position: absolute; left: 96px; top: 186px; width: 1728px; display: flex; justify-content: center; gap: 112px; }
+.app-col { display: flex; flex-direction: column; gap: 14px; }
+.app-col .tag { align-self: flex-start; }
+.app-col img { display: block; width: 378px; height: 740px; object-fit: cover; border-radius: 28px; }
 
 /* 8 Words, then a mood board */
 .words { position: absolute; left: 96px; top: 196px; width: 1728px; display: flex; gap: 56px; align-items: center; }
@@ -147,20 +114,20 @@ h1 { position: absolute; left: 96px; top: 64px; width: 1728px; font-size: 84px; 
 .side-box svg { width: 300px; height: 190px; margin-bottom: 30px; }
 
 /* 10 From direction to system */
-.sheet { position: absolute; left: 96px; top: 270px; width: 1150px; height: 700px; border-radius: 28px; background: var(--ink); color: #FFFFFF; padding: 44px; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 36px 40px; --accent: var(--volt); }
-.sheet h3 { font-family: "Barlow Condensed", sans-serif; font-weight: 800; font-size: 30px; line-height: 1; letter-spacing: 3px; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 18px; }
+.sheet { position: absolute; left: 96px; top: 270px; width: 1150px; height: 700px; border-radius: 28px; background: var(--ink); color: #FFFFFF; padding: 44px; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 36px 40px; --accent: var(--main); }
+.sheet h3 { font-weight: 700; font-size: 28px; line-height: 1; letter-spacing: 2px; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 18px; }
 .sw-row { display: flex; align-items: center; gap: 18px; height: 50px; font-size: 28px; }
 .sw-row i { flex: none; width: 44px; height: 44px; border-radius: 8px; border: 2px solid rgba(255,255,255,.22); transition: background 200ms ease; }
 .sw-row b { width: 180px; font-weight: 600; }
 .sw-row span { color: var(--ink-muted); font-variant-numeric: tabular-nums; }
-.ty-display { font-family: "Barlow Condensed", sans-serif; font-weight: 800; font-size: 76px; line-height: 1; text-transform: uppercase; }
-.ty-title { font-family: "Barlow Condensed", sans-serif; font-weight: 700; font-size: 42px; line-height: 1.2; text-transform: uppercase; margin-top: 12px; }
+.ty-display { font-weight: 800; font-style: italic; font-size: 64px; line-height: 1; letter-spacing: -1px; text-transform: uppercase; }
+.ty-title { font-weight: 700; font-size: 34px; line-height: 1.2; margin-top: 14px; }
 .ty-body { font-size: 28px; line-height: 1.3; color: #C9CDD2; margin-top: 10px; }
 .sp { display: flex; align-items: flex-end; gap: 26px; }
 .sp div { display: flex; flex-direction: column; align-items: center; gap: 10px; font-size: 28px; color: var(--ink-muted); }
 .sp i { display: block; background: var(--accent); border-radius: 4px; transition: background 200ms ease; }
 .sp-note { font-size: 28px; color: var(--ink-muted); margin-top: 18px; }
-.btn-p, .btn-s { height: 80px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-family: "Barlow Condensed", sans-serif; font-weight: 800; font-size: 36px; letter-spacing: 1px; text-transform: uppercase; transition: background 200ms ease, color 200ms ease, border-color 200ms ease; }
+.btn-p, .btn-s { height: 80px; border-radius: 999px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 32px; transition: background 200ms ease, color 200ms ease, border-color 200ms ease; }
 .btn-p { background: var(--accent); color: var(--ink); }
 .btn-s { margin-top: 16px; border: 3px solid var(--accent); color: var(--accent); }
 .builds { position: absolute; left: 1290px; top: 270px; width: 534px; height: 700px; display: flex; flex-direction: column; }
@@ -306,41 +273,22 @@ h1 { position: absolute; left: 96px; top: 64px; width: 1728px; font-size: 84px; 
 
 <!-- 7 -->
 <section class="slide" aria-label="Same idea, your app">
-  <h1>Same idea, your app</h1>
-  <p class="sub">Same layout. Same buttons. Only the look changes.</p>
-  <div class="phones">
-    <div class="phone-col">
+  <h1>Same screen, three looks</h1>
+  <div class="apps">
+    <div class="app-col">
       <span class="tag" style="background:#ECEDEF;color:#4B5563">Grey wireframe</span>
-      <div class="phone wire mock">
-        <span class="ap-name">Workout Log</span>
-        <p class="ap-hi">Hi, Maya</p>
-        <div class="ap-card"><span class="ap-k">Last workout</span><span class="ap-big">Leg day</span><span class="ap-small">Squats · 3 × 10</span></div>
-        <div class="ap-btn">Log a workout</div>
-        <div class="ap-list"><span class="ap-k">This week</span><div class="ap-row"><span>Bench press</span><span>Tue</span></div></div>
-      </div>
+      <img src="assets/app-wireframe.jpg" alt="A workout app home screen as a grey wireframe: this week's days, today's workout, three stats, program progress and a list of workouts">
     </div>
-    <div class="phone-col">
-      <span class="tag" style="background:var(--ink);color:var(--volt)">Power</span>
-      <div class="phone power mock">
-        <span class="ap-name">Workout Log</span>
-        <p class="ap-hi">Hi, Maya</p>
-        <div class="ap-card"><span class="ap-k">Last workout</span><span class="ap-big">Leg day</span><span class="ap-small">Squats · 3 × 10</span></div>
-        <div class="ap-btn">Log a workout</div>
-        <div class="ap-list"><span class="ap-k">This week</span><div class="ap-row"><span>Bench press</span><span>Tue</span></div></div>
-      </div>
+    <div class="app-col">
+      <span class="tag" style="background:var(--ink);color:var(--main)">Power</span>
+      <img src="assets/app-power.jpg" alt="The same screen in the Power direction: black background, bright orange buttons and bold italic headings over a mountain photo">
     </div>
-    <div class="phone-col">
-      <span class="tag" style="background:#FFE3DA;color:#7A2E19">Fresh</span>
-      <div class="phone fresh mock">
-        <span class="ap-name">Workout Log</span>
-        <p class="ap-hi">Hi, Maya</p>
-        <div class="ap-card"><span class="ap-k">Last workout</span><span class="ap-big">Leg day</span><span class="ap-small">Squats · 3 × 10</span></div>
-        <div class="ap-btn">Log a workout</div>
-        <div class="ap-list"><span class="ap-k">This week</span><div class="ap-row"><span>Bench press</span><span>Tue</span></div></div>
-      </div>
+    <div class="app-col">
+      <span class="tag" style="background:#DFF3E0;color:#1F5E2E">Fresh</span>
+      <img src="assets/app-fresh.jpg" alt="The same screen in the Fresh direction: white background, green accents, soft cards and a sunny forest photo">
     </div>
   </div>
-  <aside class="notes">Here's the Workout Log home screen from Session 2, three times. Same layout, same buttons, same words. Only the look changes. That's all an art direction is. Power is dark, bold and loud, like a gym. Fresh is light, rounded and friendly. Which one fits Maya, who's mid-workout and wants to log fast? Power. Fresh might suit Sam better. Pick for your primary persona.</aside>
+  <aside class="notes">Just like the room: here's one workout app's home screen, three times. Same layout, same buttons, same sections. Only the look changes. That's all an art direction is. The grey wireframe is where your app is now. Power is dark, bold and orange, like a gym at night. Fresh is light, green and friendly, like a morning run. Which one fits Maya, who's mid-workout and wants to log fast? Power. Fresh might suit Sam better. Pick for your primary persona.</aside>
 </section>
 
 <!-- 8 -->
@@ -360,8 +308,8 @@ h1 { position: absolute; left: 96px; top: 64px; width: 1728px; font-size: 84px; 
   </div>
   <div class="swatches">
     <div><i style="background:var(--ink)"></i><p><b>Black</b><span>#121417</span></p></div>
-    <div><i style="background:var(--volt)"></i><p><b>Volt</b><span>#E3F542</span></p></div>
-    <div><i style="background:var(--track)"></i><p><b>Track red</b><span>#C2432E</span></p></div>
+    <div><i style="background:var(--main)"></i><p><b>Orange</b><span>#FF6B1A</span></p></div>
+    <div><i style="background:var(--steel)"></i><p><b>Steel</b><span>#3A3D42</span></p></div>
     <div><i style="background:var(--chalk)"></i><p><b>Chalk</b><span>#EEEEEA</span></p></div>
   </div>
   <div class="card look">
@@ -404,15 +352,15 @@ h1 { position: absolute; left: 96px; top: 64px; width: 1728px; font-size: 84px; 
   <div class="sheet" id="sheet">
     <div>
       <h3>Colors</h3>
-      <div class="sw-row"><i id="main-swatch" style="background:var(--accent)"></i><b>Main</b><span id="main-hex">#E3F542</span></div>
+      <div class="sw-row"><i id="main-swatch" style="background:var(--accent)"></i><b>Main</b><span id="main-hex">#FF6B1A</span></div>
       <div class="sw-row"><i style="background:var(--ink)"></i><b>Background</b><span>#121417</span></div>
       <div class="sw-row"><i style="background:var(--ink-2)"></i><b>Surface</b><span>#1D2025</span></div>
       <div class="sw-row"><i style="background:#FFFFFF"></i><b>Text</b><span>#FFFFFF</span></div>
     </div>
     <div>
       <h3>Type</h3>
-      <p class="ty-display">Log it.</p>
-      <p class="ty-title">Barlow Condensed</p>
+      <p class="ty-display">Upper body</p>
+      <p class="ty-title">Headings: bold italic capitals</p>
       <p class="ty-body">Body text is Inter, 28 pt.</p>
     </div>
     <div>
@@ -424,12 +372,12 @@ h1 { position: absolute; left: 96px; top: 64px; width: 1728px; font-size: 84px; 
         <div><i style="width:64px;height:64px"></i>32</div>
         <div><i style="width:96px;height:96px"></i>48</div>
       </div>
-      <p class="sp-note">Corners: 6. Tap targets: 44 or more.</p>
+      <p class="sp-note">Cards: 16 corners. Buttons: round.</p>
     </div>
     <div>
       <h3>Components</h3>
-      <div class="btn-p">Log a workout</div>
-      <div class="btn-s">Add set</div>
+      <div class="btn-p">Start workout</div>
+      <div class="btn-s">See all</div>
     </div>
   </div>
   <div class="builds">
@@ -443,7 +391,7 @@ h1 { position: absolute; left: 96px; top: 64px; width: 1728px; font-size: 84px; 
       <button type="button" id="swap">Try it</button>
     </div>
   </div>
-  <aside class="notes">The direction is the feeling. The design system writes it down, so every screen keeps it. In the room: "space" is the direction, and the navy paint, the moon lamp and the bedding you buy are the system. This is the Power direction's system for Workout Log: colors, type, spacing and components. Styles build components, and components build screens. Click "Try it" to change the main color: every button follows. That's why apps look consistent, and why changes are fast.</aside>
+  <aside class="notes">The direction is the feeling. The design system writes it down, so every screen keeps it. In the room: "space" is the direction, and the navy paint, the moon lamp and the bedding you buy are the system. This is the system behind the Power screen from slide 7: the orange, the black, the bold italic headings, the round buttons. Styles build components, and components build screens. Click "Try it" to change the main color: every button follows. That's why apps look consistent, and why changes are fast.</aside>
 </section>
 
 <!-- 11 -->
@@ -514,7 +462,7 @@ h1 { position: absolute; left: 96px; top: 64px; width: 1728px; font-size: 84px; 
   });
 
   // Slide 10: change the main color once, and every button follows.
-  var accents = ["#E3F542", "#FF7A59", "#5AC8FA"];
+  var accents = ["#FF6B1A", "#E3F542", "#5AC8FA"];
   var accent = 0;
   document.getElementById("swap").onclick = function () {
     accent = (accent + 1) % accents.length;
