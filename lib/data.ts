@@ -14,6 +14,18 @@ export type Prompt = {
 
 export type ResourceLink = { label: string; url: string; note: string };
 
+// A skill students add to Claude Code. Each one says who made it and where it came from.
+export type Skill = {
+  name: string;
+  by: string;
+  from: { label: string; url: string };
+  what: string; // what it does, in plain words
+  when: string; // when you'd reach for it
+  install: string; // pasted into the terminal, in the project folder
+  then?: string; // a step after installing, if it needs one
+  tryIt: string; // a first thing to ask Claude
+};
+
 export type GuideId = "good-ux" | "test-guide" | "premium";
 
 export type Lesson = {
@@ -31,6 +43,7 @@ export type Lesson = {
   ifNeeded?: { title: string; promptIds: string[] };
   guides: GuideId[];
   resourceIds: string[];
+  skillIds?: string[];
   slides?: { href: string };
   homework: {
     due: string;
@@ -343,6 +356,40 @@ export const RESOURCES: Record<string, ResourceLink> = {
   },
 };
 
+export const SKILLS: Record<string, Skill> = {
+  stageshow: {
+    name: "Stageshow",
+    by: "Benji Taylor",
+    from: { label: "Benji Taylor's post on X", url: "https://x.com/benjitaylor/status/2116593247854453244" },
+    what: "Helps Claude make polished pictures and short animated demos of your app, like the product shots on a company's website. It doesn't record your real app. It builds a simple, good-looking copy of your screens, with a cursor clicking through.",
+    when: "You want to show your app off, on a landing page, a pitch slide or in a demo video.",
+    install: "npx skills add benjitaylor/skills --skill stageshow",
+    tryIt: "Use stageshow to make a short animated demo of someone [doing the main thing in my app].",
+  },
+  animate: {
+    name: "Animate",
+    by: "Emil Kowalski, a design engineer who has worked at Vercel and Linear",
+    from: {
+      label: "Emil Kowalski's skills on GitHub",
+      url: "https://github.com/emilkowalski/skills/blob/main/skills/animate/SKILL.md",
+    },
+    what: "Helps Claude add animation the right way. First it checks whether something should move at all. Then it picks the right speed and easing, so motion feels quick and smooth instead of slow or showy.",
+    when: "You're adding motion, like a button press, a sheet sliding up, or a little celebration when someone finishes a task. It pairs well with Prompt 12 in Session 5.",
+    install: "npx skills add emilkowalski/skills --skill animate",
+    tryIt: "Use the animate skill to add a small celebration when someone finishes [the main task in my app].",
+  },
+  impeccable: {
+    name: "Impeccable",
+    by: "Paul Bakaus",
+    from: { label: "impeccable.style", url: "https://impeccable.style/tutorials/getting-started/" },
+    what: "Like having a designer look over Claude's shoulder. It learns who your app is for, then helps Claude design new screens, polish the ones you've built, and point out what's off, so your app looks designed instead of like generic AI.",
+    when: "A screen feels a bit off and you want a second opinion, or a polish pass on spacing, fonts and labels.",
+    install: "npx impeccable install",
+    then: "Reload Claude Code, then type /impeccable init and answer its questions about who your app is for.",
+    tryIt: "/impeccable critique my home screen",
+  },
+};
+
 export const LESSONS: Lesson[] = [
   {
     id: "l1",
@@ -483,9 +530,9 @@ export const LESSONS: Lesson[] = [
     part: "Make it look good",
     title: "Make it look good",
     length: "60 min",
-    summary: "Turn a mood board into a design system, and apply it to every screen.",
+    summary: "Find your app's art direction, then turn it into a design system.",
     leaveWith:
-      "Clear takeaways from testing, feeling words for your app, a chosen art direction, a design system, and your main screen in hi-fi.",
+      "Feeling words for your app, a mood board, a chosen art direction, and a design system on your main screen.",
     before: [
       "Test with 2 or 3 people, and make changes from what you found",
       "Save 10 to 15 images to a Pinterest board",
@@ -493,16 +540,16 @@ export const LESSONS: Lesson[] = [
     ],
     plan: [
       {
-        title: "What art direction is",
-        note: "See how to read test results, what art direction means, and what makes a screen look good.",
-      },
-      {
-        title: "Walk through your test results",
-        note: "Go through what your testers did and what you changed, then your coach's comments.",
+        title: "Learn art direction and design systems",
+        note: "See what art direction is, how to find yours, and how a design system keeps every screen looking like the same app.",
       },
       {
         title: "Pick your feeling words",
-        note: "From your mood board, pick 3 to 5 words for how the app should feel and 2 or 3 for how it shouldn't. Cut images that don't fit.",
+        note: "Pick 3 to 5 words for how your app should feel, and 2 or 3 for how it shouldn't.",
+      },
+      {
+        title: "Build your mood board",
+        note: "Cut your Pinterest board down to the images that fit your words. Ask ChatGPT to make any image you can't find.",
       },
       {
         title: "Explore directions",
@@ -518,7 +565,6 @@ export const LESSONS: Lesson[] = [
       },
     ],
     mindset: [
-      { name: "Test and learn", line: "Let what you saw change your mind." },
       {
         name: "Use design judgment",
         line: "Taste comes from seeing a lot of work and noticing why it works.",
@@ -531,6 +577,8 @@ export const LESSONS: Lesson[] = [
     promptIds: ["p6", "p7", "p8"],
     guides: [],
     resourceIds: ["pinterest", "mobbin", "variant", "dribbble"],
+    skillIds: ["stageshow", "animate", "impeccable"],
+    slides: { href: "/decks/session-3/index.html" },
     homework: {
       due: "Sunday at 1 PM ET, before Session 4",
       task: 'Apply your design system to every screen, then design your logo with Prompt 8. To start, tell Claude Design: "Apply the design system to every screen. Keep the layouts and flows the same."',
@@ -546,9 +594,6 @@ export const LESSONS: Lesson[] = [
         "For a mobile app on a Mac, install Xcode from the App Store. It's a big download, so start early",
       ],
       submit: "Share your Claude Design project with your coach.",
-      question: "Pick one choice you made, like a color, font or layout. Why does it fit your users?",
-      stretch:
-        "Show the hi-fi version to 1 person from your target audience, and write down their first reaction.",
     },
   },
   {
@@ -562,7 +607,6 @@ export const LESSONS: Lesson[] = [
       "Your app running in Claude Code, demo navigation, your first fix specced and built the right way, and a repo your coach can review.",
     before: [
       "Apply the design system to every screen, make a logo, and share your Claude Design project with your coach by Sunday at 1 PM ET",
-      "Answer the designer question in Slack",
       "Have a GitHub account, and Anthropic's design, engineering and product management plugins installed",
       "For a mobile app on a Mac: install Xcode",
     ],

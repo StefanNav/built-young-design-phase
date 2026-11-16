@@ -1,0 +1,590 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Session 3: Make it look good | Built Young</title>
+<link rel="icon" href="assets/by-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Barlow+Condensed:wght@600;700;800&family=Nunito:wght@600;700;800&display=swap">
+<style>
+:root {
+  --orange: #F79A22; --orange-tint: #FEF1DD; --orange-dark: #DD8108;
+  --navy: #0F1729; --cream: #FBFAF6; --white: #FFFFFF;
+  --teal: #2A9D90; --teal-dark: #1F7A70; --teal-tint: #E4F3F1; --gray: #6B7280; --border: #E5E7EB;
+  /* The example "Power" art direction for Workout Log */
+  --volt: #E3F542; --ink: #121417; --ink-2: #1D2025; --ink-muted: #9BA1A6; --track: #C2432E; --chalk: #EEEEEA;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; background: var(--navy); overflow: hidden; }
+body { font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif; color: var(--navy); -webkit-font-smoothing: antialiased; }
+
+/* ---- Stage ---- */
+#stage { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; transform-origin: 0 0; }
+.slide { position: absolute; inset: 0; width: 1920px; height: 1080px; overflow: hidden; background: var(--cream); display: none; }
+.slide.active { display: block; }
+.notes { display: none; }
+p, h1, h2, h3, ul, ol { margin: 0; padding: 0; }
+ul, ol { list-style: none; }
+
+/* ---- Shared slide parts ---- */
+h1 { position: absolute; left: 96px; top: 64px; width: 1728px; font-size: 84px; line-height: 1.1; font-weight: 800; letter-spacing: -2px; }
+.sub { position: absolute; left: 96px; top: 174px; width: 1728px; font-size: 40px; line-height: 1.3; color: var(--gray); }
+.footer { position: absolute; left: 96px; right: 96px; bottom: 22px; height: 52px; display: flex; align-items: center; justify-content: space-between; font-size: 28px; }
+.footer .brand { display: flex; align-items: center; gap: 14px; font-weight: 700; }
+.footer img { width: 48px; height: 48px; object-fit: contain; }
+.footer .num { color: var(--gray); }
+.mark { background: var(--orange); color: var(--navy); border-radius: 18px; padding: 0 20px 6px; margin-left: -6px; display: inline-block; }
+.card { background: var(--white); border: 2px solid var(--border); border-radius: 24px; }
+.num-block { flex: none; display: flex; align-items: center; justify-content: center; border-radius: 12px; font-weight: 800; }
+.tag { display: inline-block; border-radius: 12px; font-size: 28px; font-weight: 700; padding: 8px 18px; line-height: 1.2; }
+.label { display: block; font-size: 30px; font-weight: 700; color: var(--teal-dark); margin-bottom: 10px; line-height: 1.2; }
+.side-box { position: absolute; right: 96px; top: 240px; width: 560px; height: 680px; border-radius: 28px; background: var(--navy); color: var(--cream); padding: 56px 52px; display: flex; flex-direction: column; justify-content: center; }
+.side-box small { font-size: 36px; font-weight: 700; color: #C9CDD6; display: block; }
+.side-box b { font-size: 58px; font-weight: 800; letter-spacing: -1.2px; line-height: 1.12; color: var(--orange); margin-top: 18px; display: block; }
+
+/* 1 Title */
+.t-label { position: absolute; left: 96px; top: 210px; font-size: 32px; font-weight: 700; letter-spacing: 3px; color: var(--teal-dark); }
+.t-title { position: absolute; left: 96px; top: 278px; width: 1100px; font-size: 124px; line-height: 1.14; font-weight: 800; letter-spacing: -3.5px; }
+.t-promise { position: absolute; left: 96px; top: 760px; width: 960px; font-size: 44px; line-height: 1.3; color: var(--gray); }
+.t-logo { position: absolute; right: 110px; top: 240px; width: 600px; height: 586px; object-fit: contain; }
+
+/* 2 and 9 Definitions */
+.define { position: absolute; left: 96px; top: 300px; width: 1500px; font-size: 76px; line-height: 1.14; font-weight: 800; letter-spacing: -1.8px; }
+.has { position: absolute; left: 96px; top: 690px; width: 1728px; }
+.has small { display: block; font-size: 32px; font-weight: 600; color: var(--gray); margin-bottom: 22px; }
+.chips { display: flex; flex-wrap: wrap; gap: 20px; }
+.chips span { font-size: 38px; font-weight: 700; padding: 20px 30px; border-radius: 18px; background: var(--white); border: 2px solid var(--border); }
+.chips span.hl { background: var(--orange-tint); border-color: var(--orange); }
+
+/* 3 to 5 Rooms */
+.room-photo { position: absolute; left: 96px; top: 200px; width: 1100px; height: 770px; border-radius: 28px; overflow: hidden; background: #D9D6CF; }
+.room-photo img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.room-side { position: absolute; left: 1240px; top: 200px; width: 584px; height: 770px; display: flex; flex-direction: column; }
+.say-big { font-size: 68px; line-height: 1.12; font-weight: 800; letter-spacing: -1.6px; }
+.ingr { display: flex; flex-direction: column; gap: 24px; margin-top: 10px; }
+.ingr li { display: flex; align-items: center; gap: 24px; font-size: 42px; font-weight: 700; letter-spacing: -0.6px; line-height: 1.1; }
+.ingr i { flex: none; width: 60px; height: 60px; border-radius: 14px; border: 2px solid rgba(15,23,41,.14); }
+.ingr i.round { border-radius: 50%; background: transparent; border: 6px solid var(--navy); }
+.feels { margin-top: auto; background: var(--orange-tint); border: 3px solid var(--orange); border-radius: 24px; padding: 32px 36px; }
+.feels small { display: block; font-size: 30px; font-weight: 700; color: #8A4B00; margin-bottom: 8px; }
+.feels p { font-size: 48px; line-height: 1.15; font-weight: 800; letter-spacing: -1px; }
+.feels.plain { background: var(--white); border-color: var(--border); }
+.feels.plain small { color: var(--gray); }
+
+/* 6 Two more */
+.duo { position: absolute; left: 96px; top: 200px; width: 1728px; display: flex; gap: 36px; }
+.duo .card { flex: 1; height: 770px; overflow: hidden; display: flex; flex-direction: column; }
+.duo .ph { flex: none; height: 500px; }
+.duo .ph img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.duo .bd { padding: 36px 44px; }
+.duo h2 { font-size: 56px; font-weight: 800; letter-spacing: -1.2px; line-height: 1.1; }
+.duo p { font-size: 38px; line-height: 1.3; color: var(--gray); margin-top: 12px; }
+
+/* 7 Same idea, your app */
+.phones { position: absolute; left: 96px; top: 250px; width: 1728px; display: flex; gap: 84px; }
+.phone-col { width: 520px; display: flex; flex-direction: column; gap: 16px; }
+.phone-col .tag { align-self: flex-start; }
+.phone { height: 640px; border-radius: 40px; padding: 38px 36px; overflow: hidden; display: flex; flex-direction: column; border: 3px solid; }
+.ap-name { font-size: 24px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; }
+.ap-hi { font-size: 54px; font-weight: 700; line-height: 1.1; margin-top: 16px; }
+.ap-card { margin-top: 28px; padding: 26px 28px; }
+.ap-k { display: block; font-size: 24px; font-weight: 600; }
+.ap-big { display: block; font-size: 38px; font-weight: 700; line-height: 1.2; margin-top: 6px; }
+.ap-small { display: block; font-size: 28px; margin-top: 4px; }
+.ap-btn { margin-top: 28px; height: 96px; display: flex; align-items: center; justify-content: center; font-size: 34px; font-weight: 700; }
+.ap-list { margin-top: 30px; }
+.ap-row { display: flex; justify-content: space-between; align-items: center; height: 64px; margin-top: 8px; font-size: 28px; font-weight: 600; }
+
+.phone.wire { background: #FFFFFF; border-color: #D1D5DB; color: #374151; }
+.wire .ap-name, .wire .ap-k, .wire .ap-row span:last-child { color: #6B7280; }
+.wire .ap-card { background: #F3F4F6; border-radius: 12px; }
+.wire .ap-btn { background: #9CA3AF; color: #FFFFFF; border-radius: 12px; }
+.wire .ap-row { border-bottom: 2px solid #E5E7EB; }
+
+.phone.power { background: var(--ink); border-color: var(--ink); color: #FFFFFF; }
+.power .ap-name { color: var(--volt); font-family: "Barlow Condensed", sans-serif; font-size: 28px; letter-spacing: 4px; }
+.power .ap-hi { font-family: "Barlow Condensed", sans-serif; font-weight: 800; font-size: 76px; line-height: 1; text-transform: uppercase; }
+.power .ap-card { background: var(--ink-2); border-radius: 6px; border-left: 8px solid var(--volt); }
+.power .ap-k, .power .ap-row span:last-child { color: var(--ink-muted); text-transform: uppercase; letter-spacing: 1px; }
+.power .ap-big { font-family: "Barlow Condensed", sans-serif; font-weight: 800; font-size: 46px; text-transform: uppercase; }
+.power .ap-btn { background: var(--volt); color: var(--ink); border-radius: 6px; font-family: "Barlow Condensed", sans-serif; font-weight: 800; font-size: 40px; text-transform: uppercase; letter-spacing: 1px; }
+.power .ap-row { border-bottom: 2px solid #2A2E34; }
+
+.phone.fresh { background: #FFF6EE; border-color: #F3DFCC; color: #2B2420; font-family: "Nunito", sans-serif; }
+.fresh .ap-name { color: #75655A; letter-spacing: 0; text-transform: none; font-size: 26px; }
+.fresh .ap-hi { font-weight: 800; }
+.fresh .ap-card { background: #FFFFFF; border-radius: 28px; box-shadow: 0 10px 28px rgba(120, 72, 32, .12); }
+.fresh .ap-k, .fresh .ap-row span:last-child { color: #75655A; }
+.fresh .ap-big { font-weight: 800; }
+.fresh .ap-btn { background: #FF7A59; color: #2B1A12; border-radius: 999px; font-weight: 800; }
+.fresh .ap-row { background: #FFFFFF; border-radius: 18px; padding: 0 22px; }
+
+/* 8 Words, then a mood board */
+.words { position: absolute; left: 96px; top: 196px; width: 1728px; display: flex; gap: 56px; align-items: center; }
+.wgroup { display: flex; align-items: center; gap: 16px; }
+.wgroup small { font-size: 30px; font-weight: 700; color: var(--gray); margin-right: 6px; }
+.wgroup span { font-size: 38px; font-weight: 800; padding: 12px 26px; border-radius: 16px; background: var(--orange-tint); border: 2px solid var(--orange); }
+.wgroup.not span { background: #F1F2F4; border-color: #D5D8DD; color: var(--gray); text-decoration: line-through; text-decoration-thickness: 3px; }
+.board { position: absolute; left: 96px; top: 310px; width: 1170px; height: 520px; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: 1fr 1fr; gap: 14px; }
+.board img { display: block; width: 100%; height: 100%; min-height: 0; object-fit: cover; border-radius: 16px; }
+.swatches { position: absolute; left: 96px; top: 852px; width: 1170px; display: flex; gap: 18px; }
+.swatches div { flex: 1; display: flex; align-items: center; gap: 16px; background: var(--white); border: 2px solid var(--border); border-radius: 18px; padding: 14px 18px; }
+.swatches i { flex: none; width: 64px; height: 64px; border-radius: 12px; border: 2px solid rgba(15,23,41,.1); }
+.swatches b { display: block; font-size: 30px; line-height: 1.15; }
+.swatches span { font-size: 28px; color: var(--gray); }
+.look { position: absolute; left: 1300px; top: 310px; width: 524px; height: 640px; padding: 40px 40px; display: flex; flex-direction: column; gap: 28px; }
+.look li b { display: block; font-size: 40px; font-weight: 800; letter-spacing: -0.6px; line-height: 1.15; }
+.look li span { display: block; font-size: 30px; line-height: 1.3; color: var(--gray); margin-top: 2px; }
+
+/* 9 Design system */
+.define.ds { top: 240px; width: 1060px; font-size: 68px; }
+.has.ds { top: 540px; width: 1060px; }
+.real { position: absolute; left: 96px; top: 830px; width: 1060px; font-size: 34px; line-height: 1.3; color: var(--gray); }
+.real b { color: var(--navy); }
+.side-box svg { width: 300px; height: 190px; margin-bottom: 30px; }
+
+/* 10 From direction to system */
+.sheet { position: absolute; left: 96px; top: 270px; width: 1150px; height: 700px; border-radius: 28px; background: var(--ink); color: #FFFFFF; padding: 44px; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 36px 40px; --accent: var(--volt); }
+.sheet h3 { font-family: "Barlow Condensed", sans-serif; font-weight: 800; font-size: 30px; line-height: 1; letter-spacing: 3px; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 18px; }
+.sw-row { display: flex; align-items: center; gap: 18px; height: 50px; font-size: 28px; }
+.sw-row i { flex: none; width: 44px; height: 44px; border-radius: 8px; border: 2px solid rgba(255,255,255,.22); transition: background 200ms ease; }
+.sw-row b { width: 180px; font-weight: 600; }
+.sw-row span { color: var(--ink-muted); font-variant-numeric: tabular-nums; }
+.ty-display { font-family: "Barlow Condensed", sans-serif; font-weight: 800; font-size: 76px; line-height: 1; text-transform: uppercase; }
+.ty-title { font-family: "Barlow Condensed", sans-serif; font-weight: 700; font-size: 42px; line-height: 1.2; text-transform: uppercase; margin-top: 12px; }
+.ty-body { font-size: 28px; line-height: 1.3; color: #C9CDD2; margin-top: 10px; }
+.sp { display: flex; align-items: flex-end; gap: 26px; }
+.sp div { display: flex; flex-direction: column; align-items: center; gap: 10px; font-size: 28px; color: var(--ink-muted); }
+.sp i { display: block; background: var(--accent); border-radius: 4px; transition: background 200ms ease; }
+.sp-note { font-size: 28px; color: var(--ink-muted); margin-top: 18px; }
+.btn-p, .btn-s { height: 80px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-family: "Barlow Condensed", sans-serif; font-weight: 800; font-size: 36px; letter-spacing: 1px; text-transform: uppercase; transition: background 200ms ease, color 200ms ease, border-color 200ms ease; }
+.btn-p { background: var(--accent); color: var(--ink); }
+.btn-s { margin-top: 16px; border: 3px solid var(--accent); color: var(--accent); }
+.builds { position: absolute; left: 1290px; top: 270px; width: 534px; height: 700px; display: flex; flex-direction: column; }
+.build { padding: 20px 30px; }
+.build b { display: block; font-size: 40px; font-weight: 800; letter-spacing: -0.6px; line-height: 1.2; }
+.build span { display: block; font-size: 28px; color: var(--gray); line-height: 1.3; }
+.down { height: 40px; display: flex; align-items: center; justify-content: center; }
+.down svg { width: 40px; height: 28px; transform: rotate(90deg); }
+.live { margin-top: auto; background: var(--orange-tint); border: 3px solid var(--orange); border-radius: 24px; padding: 26px 30px; }
+.live p { font-size: 34px; line-height: 1.22; font-weight: 800; letter-spacing: -0.5px; }
+.live button { margin-top: 16px; font: 700 28px/1 "Inter", sans-serif; color: #FFFFFF; background: var(--navy); border: 0; border-radius: 12px; padding: 16px 24px; cursor: pointer; }
+.live button:focus-visible { outline: 4px solid var(--orange); outline-offset: 3px; }
+
+/* 11 Now let's make yours */
+.todo { position: absolute; left: 96px; top: 250px; width: 1728px; display: grid; grid-template-columns: 1fr 1fr; grid-auto-rows: 330px; gap: 28px 36px; }
+.todo .card { padding: 44px 48px; display: flex; flex-direction: column; justify-content: center; }
+.todo .head { display: flex; align-items: center; gap: 28px; }
+.todo .num-block { width: 80px; height: 80px; background: var(--navy); color: #FFFFFF; font-size: 40px; border-radius: 16px; }
+.todo h2 { font-size: 56px; font-weight: 800; letter-spacing: -1.2px; line-height: 1.1; }
+.todo p { font-size: 38px; line-height: 1.3; color: var(--gray); margin-top: 22px; }
+.todo .card.prompt { background: var(--orange-tint); border-color: var(--orange); }
+.todo .card.prompt .num-block { background: var(--orange); color: var(--navy); }
+.todo .card.prompt p { color: #6B4A16; }
+
+/* 12 Homework */
+.make { position: absolute; left: 96px; top: 270px; width: 1728px; display: flex; gap: 32px; }
+.make .card { flex: 1; height: 650px; padding: 48px; display: flex; flex-direction: column; justify-content: space-between; }
+.make svg { width: 150px; height: 150px; color: var(--navy); }
+.make h2 { font-size: 56px; line-height: 1.1; font-weight: 800; letter-spacing: -1.2px; }
+.make p { font-size: 36px; line-height: 1.3; color: var(--gray); margin-top: 16px; }
+.make small { display: block; font-size: 32px; font-weight: 700; color: var(--teal-dark); margin-bottom: 14px; }
+
+/* ---- Deck controls ---- */
+#bar { position: fixed; left: 50%; bottom: 14px; transform: translateX(-50%); display: flex; align-items: center; gap: 4px; padding: 6px; border-radius: 14px; background: rgba(15,23,41,.92); color: #fff; font-size: 14px; font-weight: 600; z-index: 20; transition: opacity 180ms ease; }
+#bar.idle { opacity: 0; pointer-events: none; }
+#bar button, #bar a { all: unset; cursor: pointer; padding: 9px 13px; border-radius: 9px; white-space: nowrap; }
+#bar button:hover, #bar a:hover { background: rgba(255,255,255,.16); }
+#bar button:focus-visible, #bar a:focus-visible { outline: 2px solid var(--orange); }
+#count { padding: 0 10px; font-variant-numeric: tabular-nums; }
+#notes { position: fixed; left: 50%; bottom: 74px; transform: translateX(-50%); width: min(760px, calc(100vw - 32px)); padding: 18px 22px; border-radius: 14px; background: rgba(15,23,41,.96); color: #fff; font-size: 19px; line-height: 1.45; z-index: 21; display: none; }
+#notes.show { display: block; }
+#notes small { display: block; color: var(--orange); font-size: 13px; font-weight: 700; margin-bottom: 6px; }
+
+/* ---- PDF: one slide per page, no controls ---- */
+@page { size: 1920px 1080px; margin: 0; }
+@media print {
+  html, body { height: auto; overflow: visible; background: none; }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  #stage { position: static; width: 1920px; height: auto; transform: none !important; }
+  .slide { display: block; position: relative; inset: auto; break-after: page; break-inside: avoid; }
+  .slide:last-child { break-after: auto; }
+  #bar, #notes, .live button { display: none !important; }
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="right" viewBox="0 0 48 32"><path d="M3 16h40M30 4l13 12-13 12" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+
+<main id="stage">
+
+<!-- 1 -->
+<section class="slide" aria-label="Title">
+  <p class="t-label">BUILT YOUNG, DESIGN PHASE</p>
+  <div class="t-title">Session 3:<br>Make it<br><span class="mark">look good.</span></div>
+  <p class="t-promise">Today you choose how your app looks and feels.</p>
+  <img class="t-logo" src="assets/by-logo.png" alt="Built Young logo">
+  <aside class="notes">Welcome back. Your flows work, and you've tested them. Now we make them feel like something. A quick lecture first: what art direction is, how to find yours, and what a design system is. Then we spend the rest of the session making yours together.</aside>
+</section>
+
+<!-- 2 -->
+<section class="slide" aria-label="What's art direction?">
+  <h1>What's art direction?</h1>
+  <p class="define">The look and feel you choose, so every screen feels like the same app.</p>
+  <div class="has">
+    <small>It's made of</small>
+    <div class="chips"><span>Colors</span><span>Fonts</span><span>Images</span><span>Shapes</span><span class="hl">One feeling</span></div>
+  </div>
+  <aside class="notes">Art direction is a set of choices, made on purpose, that all point at one feeling. Colors, fonts, images and shapes are the tools. The feeling is the point. Let's see it in a room first, because it's easier to see there than on a phone.</aside>
+</section>
+
+<!-- 3 -->
+<section class="slide" aria-label="An empty room">
+  <h1>An empty room</h1>
+  <div class="room-photo"><img src="assets/empty-room.jpg" alt="An empty room with white walls, a wooden floor and tall windows"></div>
+  <div class="room-side">
+    <p class="say-big">It works, but it doesn't feel like anything.</p>
+    <div class="feels plain"><small>Sound familiar?</small><p>That's your app in grey wireframes.</p></div>
+  </div>
+  <aside class="notes">Walls, floor, windows. Everything's in the right place, and you could live in it. But it doesn't feel like anything yet. That's where your app is right now: the flows work, the layout is right, and there's no feeling. Remember this room: the same windows, the same radiator, the same floor. Watch what happens when we pick a direction for it. Photo: Christian Lue on Unsplash.</aside>
+</section>
+
+<!-- 4 -->
+<section class="slide" aria-label="Art direction: Space">
+  <h1>Art direction: Space</h1>
+  <div class="room-photo"><img src="assets/space-room.jpg" alt="The same room as a space lounge, with a galaxy ceiling, an astronaut mural, hanging planets and a telescope"></div>
+  <div class="room-side">
+    <span class="label">The ingredients</span>
+    <ul class="ingr">
+      <li><i style="background:#251E55"></i>Galaxy purple and navy</li>
+      <li><i style="background:#F2B66D"></i>Warm glowing lights</li>
+      <li><i style="background:#D9773A"></i>Planets and rockets</li>
+      <li><i class="round"></i>Round shapes</li>
+    </ul>
+    <div class="feels"><small>It feels</small><p>Dreamy, adventurous, a bit magical.</p></div>
+  </div>
+  <aside class="notes">It's the same room. Same windows, same radiator, same floor. Someone picked a direction: space. Look at the ingredients. The galaxy ceiling, the glowing lights, the planets and rockets, even the round rug and the round bean bag all point at the same idea. Nothing in the room fights it. That's what makes it feel finished.</aside>
+</section>
+
+<!-- 5 -->
+<section class="slide" aria-label="Art direction: Nature">
+  <h1>Art direction: Nature</h1>
+  <div class="room-photo"><img src="assets/nature-room.jpg" alt="The same room as a forest living room, with plants, a mountain mural, a log table and warm light"></div>
+  <div class="room-side">
+    <span class="label">The ingredients</span>
+    <ul class="ingr">
+      <li><i style="background:#3F6B3B"></i>Leafy greens</li>
+      <li><i style="background:#8B5E3C"></i>Warm wood</li>
+      <li><i style="background:#8C9A8E"></i>Misty mountains</li>
+      <li><i style="background:#F2C27B"></i>Golden light</li>
+    </ul>
+    <div class="feels"><small>It feels</small><p>Cozy, calm, alive.</p></div>
+  </div>
+  <aside class="notes">Same room again, with a completely different feeling. Greens, wood, mountains and golden light. Ask the class: what would feel wrong in this room? The astronaut would. That's how you know a direction is working: you can tell what doesn't belong.</aside>
+</section>
+
+<!-- 6 -->
+<section class="slide" aria-label="Two more directions">
+  <h1>Two more directions</h1>
+  <div class="duo">
+    <div class="card">
+      <div class="ph"><img src="assets/arcade-room.jpg" alt="A gaming corner glowing with pink and blue neon signs and pixel art screens" style="object-position:50% 38%"></div>
+      <div class="bd"><h2>Retro arcade</h2><p>Neon pink and blue, dark walls, loud and bold.</p></div>
+    </div>
+    <div class="card">
+      <div class="ph"><img src="assets/calm-room.jpg" alt="The same room as a calm minimal living room, with a white sofa, a round wooden table and a paper lamp" style="object-position:50% 55%"></div>
+      <div class="bd"><h2>Calm minimal</h2><p>White walls, light wood, lots of empty space.</p></div>
+    </div>
+  </div>
+  <aside class="notes">Which would you relax in? Which would you game in? What the room is for decides the direction. Same with your app: what it's for, and who it's for, decide how it should feel. Calm minimal is the same room one more time. Arcade photo: Branden Skeli on Unsplash.</aside>
+</section>
+
+<!-- 7 -->
+<section class="slide" aria-label="Same idea, your app">
+  <h1>Same idea, your app</h1>
+  <p class="sub">Same layout. Same buttons. Only the look changes.</p>
+  <div class="phones">
+    <div class="phone-col">
+      <span class="tag" style="background:#ECEDEF;color:#4B5563">Grey wireframe</span>
+      <div class="phone wire mock">
+        <span class="ap-name">Workout Log</span>
+        <p class="ap-hi">Hi, Maya</p>
+        <div class="ap-card"><span class="ap-k">Last workout</span><span class="ap-big">Leg day</span><span class="ap-small">Squats · 3 × 10</span></div>
+        <div class="ap-btn">Log a workout</div>
+        <div class="ap-list"><span class="ap-k">This week</span><div class="ap-row"><span>Bench press</span><span>Tue</span></div></div>
+      </div>
+    </div>
+    <div class="phone-col">
+      <span class="tag" style="background:var(--ink);color:var(--volt)">Power</span>
+      <div class="phone power mock">
+        <span class="ap-name">Workout Log</span>
+        <p class="ap-hi">Hi, Maya</p>
+        <div class="ap-card"><span class="ap-k">Last workout</span><span class="ap-big">Leg day</span><span class="ap-small">Squats · 3 × 10</span></div>
+        <div class="ap-btn">Log a workout</div>
+        <div class="ap-list"><span class="ap-k">This week</span><div class="ap-row"><span>Bench press</span><span>Tue</span></div></div>
+      </div>
+    </div>
+    <div class="phone-col">
+      <span class="tag" style="background:#FFE3DA;color:#7A2E19">Fresh</span>
+      <div class="phone fresh mock">
+        <span class="ap-name">Workout Log</span>
+        <p class="ap-hi">Hi, Maya</p>
+        <div class="ap-card"><span class="ap-k">Last workout</span><span class="ap-big">Leg day</span><span class="ap-small">Squats · 3 × 10</span></div>
+        <div class="ap-btn">Log a workout</div>
+        <div class="ap-list"><span class="ap-k">This week</span><div class="ap-row"><span>Bench press</span><span>Tue</span></div></div>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">Here's the Workout Log home screen from Session 2, three times. Same layout, same buttons, same words. Only the look changes. That's all an art direction is. Power is dark, bold and loud, like a gym. Fresh is light, rounded and friendly. Which one fits Maya, who's mid-workout and wants to log fast? Power. Fresh might suit Sam better. Pick for your primary persona.</aside>
+</section>
+
+<!-- 8 -->
+<section class="slide" aria-label="Words first, then a mood board">
+  <h1>Words first, then a mood board</h1>
+  <div class="words">
+    <div class="wgroup"><small>Should feel</small><span>Strong</span><span>Focused</span><span>Quick</span></div>
+    <div class="wgroup not"><small>Shouldn't feel</small><span>Cute</span><span>Cluttered</span></div>
+  </div>
+  <div class="board">
+    <img src="assets/mood-sprint.jpg" alt="A sprinter in a yellow cap exploding off a red running track" style="object-position:50% 42%">
+    <img src="assets/mood-barbell.jpg" alt="A barbell resting on a gym floor">
+    <img src="assets/mood-track.jpg" alt="A curving red running track with white lane lines">
+    <img src="assets/mood-stopwatch.jpg" alt="A stopwatch on a black background">
+    <img src="assets/mood-chalk.jpg" alt="Two chalked hands, in black and white" style="object-position:50% 45%">
+    <img src="assets/mood-dumbbells.jpg" alt="A row of black hex dumbbells">
+  </div>
+  <div class="swatches">
+    <div><i style="background:var(--ink)"></i><p><b>Black</b><span>#121417</span></p></div>
+    <div><i style="background:var(--volt)"></i><p><b>Volt</b><span>#E3F542</span></p></div>
+    <div><i style="background:var(--track)"></i><p><b>Track red</b><span>#C2432E</span></p></div>
+    <div><i style="background:var(--chalk)"></i><p><b>Chalk</b><span>#EEEEEA</span></p></div>
+  </div>
+  <div class="card look">
+    <span class="label">Where to look</span>
+    <ul style="display:flex;flex-direction:column;gap:26px">
+      <li><b>Pinterest</b><span>Moods, places and colors</span></li>
+      <li><b>Dribbble</b><span>App designs</span></li>
+      <li><b>Mobbin</b><span>Screens from real apps</span></li>
+      <li><b>ChatGPT</b><span>Make images of your words</span></li>
+    </ul>
+  </div>
+  <aside class="notes">Words first, so you know what you're looking for. For Workout Log: strong, focused, quick, and not cute or cluttered. Then collect images that feel like those words. They don't have to be apps: a track, a stopwatch, chalk. Pull the colors out of the board. When you can't find the right image, ask ChatGPT to make one from your words. Then cut anything that doesn't fit. Prompt 6 turns your words and board into 2 or 3 directions to compare. Photos: Tom Morbey, Eduardo Cano Photo Co., Yanhao Fang, William Warby, Daniel Romero and Rick Barrett on Unsplash.</aside>
+</section>
+
+<!-- 9 -->
+<section class="slide" aria-label="What's a design system?">
+  <h1>What's a design system?</h1>
+  <p class="define ds">A set of rules and reusable parts that make every screen look like the same app.</p>
+  <div class="has ds">
+    <small>The parts</small>
+    <div class="chips"><span>Colors</span><span>Type</span><span>Spacing</span><span>Corners and shadows</span><span class="hl">Components</span></div>
+  </div>
+  <p class="real">Real ones: <b>Google's Material Design</b> and <b>Apple's Human Interface Guidelines</b>.</p>
+  <div class="side-box">
+    <svg viewBox="0 0 300 190" aria-hidden="true">
+      <g fill="#F79A22"><rect x="40" y="116" width="30" height="20" rx="5"/><rect x="90" y="116" width="30" height="20" rx="5"/><rect x="140" y="116" width="30" height="20" rx="5"/><rect x="20" y="132" width="170" height="56" rx="8"/></g>
+      <g fill="#2A9D90"><rect x="120" y="60" width="30" height="20" rx="5"/><rect x="170" y="60" width="30" height="20" rx="5"/><rect x="220" y="60" width="30" height="20" rx="5"/><rect x="100" y="76" width="170" height="56" rx="8"/></g>
+      <g fill="#FBFAF6"><rect x="178" y="4" width="26" height="20" rx="5"/><rect x="226" y="4" width="26" height="20" rx="5"/><rect x="160" y="20" width="110" height="56" rx="8"/></g>
+    </svg>
+    <small>Like LEGO</small>
+    <b>A few pieces, used again and again.</b>
+  </div>
+  <aside class="notes">A design system is like a box of LEGO: a small set of pieces, used again and again, so everything you build fits together. Big companies have huge ones. Google's is called Material Design, and Apple has its Human Interface Guidelines. Yours fits on one page. Components are the reusable parts, like buttons, cards and list rows.</aside>
+</section>
+
+<!-- 10 -->
+<section class="slide" aria-label="From direction to system">
+  <h1>From direction to system</h1>
+  <p class="sub">Space is the direction. The paint, the lamp and the bedding are the system.</p>
+  <div class="sheet" id="sheet">
+    <div>
+      <h3>Colors</h3>
+      <div class="sw-row"><i id="main-swatch" style="background:var(--accent)"></i><b>Main</b><span id="main-hex">#E3F542</span></div>
+      <div class="sw-row"><i style="background:var(--ink)"></i><b>Background</b><span>#121417</span></div>
+      <div class="sw-row"><i style="background:var(--ink-2)"></i><b>Surface</b><span>#1D2025</span></div>
+      <div class="sw-row"><i style="background:#FFFFFF"></i><b>Text</b><span>#FFFFFF</span></div>
+    </div>
+    <div>
+      <h3>Type</h3>
+      <p class="ty-display">Log it.</p>
+      <p class="ty-title">Barlow Condensed</p>
+      <p class="ty-body">Body text is Inter, 28 pt.</p>
+    </div>
+    <div>
+      <h3>Spacing</h3>
+      <div class="sp">
+        <div><i style="width:16px;height:16px"></i>8</div>
+        <div><i style="width:32px;height:32px"></i>16</div>
+        <div><i style="width:48px;height:48px"></i>24</div>
+        <div><i style="width:64px;height:64px"></i>32</div>
+        <div><i style="width:96px;height:96px"></i>48</div>
+      </div>
+      <p class="sp-note">Corners: 6. Tap targets: 44 or more.</p>
+    </div>
+    <div>
+      <h3>Components</h3>
+      <div class="btn-p">Log a workout</div>
+      <div class="btn-s">Add set</div>
+    </div>
+  </div>
+  <div class="builds">
+    <div class="card build"><b>Styles</b><span>Colors, fonts and spacing</span></div>
+    <div class="down"><svg><use href="#right"/></svg></div>
+    <div class="card build"><b>Components</b><span>Buttons, cards and list rows</span></div>
+    <div class="down"><svg><use href="#right"/></svg></div>
+    <div class="card build"><b>Screens</b><span>Home, Log, Progress</span></div>
+    <div class="live">
+      <p>Change the main color once, and every button changes.</p>
+      <button type="button" id="swap">Try it</button>
+    </div>
+  </div>
+  <aside class="notes">The direction is the feeling. The design system writes it down, so every screen keeps it. In the room: "space" is the direction, and the navy paint, the moon lamp and the bedding you buy are the system. This is the Power direction's system for Workout Log: colors, type, spacing and components. Styles build components, and components build screens. Click "Try it" to change the main color: every button follows. That's why apps look consistent, and why changes are fast.</aside>
+</section>
+
+<!-- 11 -->
+<section class="slide" aria-label="Now let's make yours">
+  <h1>Now let's make yours</h1>
+  <p class="sub">We'll do all four together.</p>
+  <div class="todo">
+    <div class="card"><div class="head"><span class="num-block">1</span><h2>Feeling words</h2></div><p>3 to 5 it should feel, and 2 or 3 it shouldn't.</p></div>
+    <div class="card"><div class="head"><span class="num-block">2</span><h2>Mood board</h2></div><p>Cut it to the images that fit your words.</p></div>
+    <div class="card prompt"><div class="head"><span class="num-block">3</span><h2>Run Prompt 6</h2></div><p>Compare 2 or 3 directions. Pick one, and say why.</p></div>
+    <div class="card prompt"><div class="head"><span class="num-block">4</span><h2>Run Prompt 7</h2></div><p>Check contrast. Then put your wireframe and new screen side by side.</p></div>
+  </div>
+  <aside class="notes">Leave this slide up while you work. Feeling words: push past "clean" and "modern", because everyone says those. Ask: how should your primary persona feel when they open it? Mood board: open their Pinterest board and cut anything that doesn't fit the words. Prompt 6 in Claude Design brainstorms 3 directions in words first, then designs the main screen in each. When they pick one, ask why it fits their users. Prompt 7 turns it into a design system and applies it to the main screen. Check every text color against its background (4.5:1 for body text). Then look at the wireframe and the new screen side by side: same layout, new feeling.</aside>
+</section>
+
+<!-- 12 -->
+<section class="slide" aria-label="Your homework">
+  <h1>Your homework</h1>
+  <p class="sub">Due Sunday at 1 PM ET, before Session 4.</p>
+  <div class="make">
+    <div class="card">
+      <svg viewBox="0 0 96 96" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="14" width="34" height="68" rx="7"/><rect x="54" y="14" width="34" height="68" rx="7"/><path d="M16 28h18M16 40h12M62 28h18M62 40h12"/><rect x="16" y="56" width="18" height="12" rx="3"/><rect x="62" y="56" width="18" height="12" rx="3"/></svg>
+      <div><small>Step 1</small><h2>Apply your design system</h2><p>To every screen. Keep the layouts and flows the same.</p></div>
+    </div>
+    <div class="card">
+      <svg viewBox="0 0 96 96" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="48" cy="48" r="36"/><path d="M48 26l6 14 15 1-12 9 4 15-13-8-13 8 4-15-12-9 15-1z"/></svg>
+      <div><small>Step 2</small><h2>Design your logo</h2><p>Run Prompt 8 for 2 or 3 options with your app's name.</p></div>
+    </div>
+    <div class="card">
+      <svg viewBox="0 0 96 96" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="10" y="18" width="76" height="52" rx="7"/><path d="M34 84h28M48 70v14"/><path d="M34 44l10 10 18-20"/></svg>
+      <div><small>Step 3</small><h2>Get ready for Session 4</h2><p>A GitHub account, Claude's plugins, and Xcode if you're on a Mac.</p></div>
+    </div>
+  </div>
+  <aside class="notes">To start step 1, tell Claude Design: "Apply the design system to every screen. Keep the layouts and flows the same." Repeated parts, like buttons, cards and list rows, should look the same everywhere, and all text should pass the contrast check. For step 3, the details are in the homework on the Session 3 page. Xcode is a big download, so start early. Have them say the homework back to you.</aside>
+</section>
+
+</main>
+
+<div id="notes" role="status"><small></small><span></span></div>
+
+<nav id="bar" aria-label="Deck controls">
+  <button id="prev" aria-label="Previous slide">&larr;</button>
+  <span id="count"></span>
+  <button id="next" aria-label="Next slide">&rarr;</button>
+  <button id="toggle-notes">Notes (N)</button>
+  <button id="fs">Fullscreen (F)</button>
+  <a href="Built-Young-Session-3.pdf" download>Download PDF</a>
+</nav>
+
+<script>
+(function () {
+  var stage = document.getElementById("stage");
+  var slides = Array.prototype.slice.call(document.querySelectorAll(".slide"));
+  var bar = document.getElementById("bar");
+  var notes = document.getElementById("notes");
+  var count = document.getElementById("count");
+  var current = 0;
+  var idleTimer;
+
+  // Same footer on every slide after the title.
+  slides.forEach(function (slide, i) {
+    if (i === 0) return;
+    var footer = document.createElement("div");
+    footer.className = "footer";
+    footer.innerHTML = '<span class="brand"><img src="assets/by-logo.png" alt="">Built Young</span><span class="num">Session 3</span>';
+    var aside = slide.querySelector(".notes");
+    slide.insertBefore(footer, aside);
+  });
+
+  // Slide 10: change the main color once, and every button follows.
+  var accents = ["#E3F542", "#FF7A59", "#5AC8FA"];
+  var accent = 0;
+  document.getElementById("swap").onclick = function () {
+    accent = (accent + 1) % accents.length;
+    document.getElementById("sheet").style.setProperty("--accent", accents[accent]);
+    document.getElementById("main-hex").textContent = accents[accent];
+  };
+
+  function fit() {
+    var scale = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
+    var x = (window.innerWidth - 1920 * scale) / 2;
+    var y = (window.innerHeight - 1080 * scale) / 2;
+    stage.style.transform = "translate(" + x + "px," + y + "px) scale(" + scale + ")";
+  }
+
+  function show(n) {
+    current = Math.max(0, Math.min(slides.length - 1, n));
+    slides.forEach(function (slide, i) { slide.classList.toggle("active", i === current); });
+    count.textContent = current + 1 + " / " + slides.length;
+    notes.querySelector("small").textContent = "Notes, slide " + (current + 1);
+    notes.querySelector("span").textContent = slides[current].querySelector(".notes").textContent;
+    if (location.hash !== "#" + (current + 1)) history.replaceState(null, "", "#" + (current + 1));
+  }
+
+  function fromHash() {
+    var n = parseInt(location.hash.slice(1), 10);
+    return isNaN(n) ? 0 : n - 1;
+  }
+
+  function wake() {
+    bar.classList.remove("idle");
+    clearTimeout(idleTimer);
+    idleTimer = setTimeout(function () { bar.classList.add("idle"); }, 2500);
+  }
+
+  function toggleNotes() { notes.classList.toggle("show"); }
+  function toggleFullscreen() {
+    if (document.fullscreenElement) document.exitFullscreen();
+    else document.documentElement.requestFullscreen();
+  }
+
+  document.addEventListener("keydown", function (e) {
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    var k = e.key;
+    if (k === "ArrowRight" || k === "ArrowDown" || k === "PageDown" || k === " ") { e.preventDefault(); show(current + 1); }
+    else if (k === "ArrowLeft" || k === "ArrowUp" || k === "PageUp") { e.preventDefault(); show(current - 1); }
+    else if (k === "Home") show(0);
+    else if (k === "End") show(slides.length - 1);
+    else if (k === "n" || k === "N") toggleNotes();
+    else if (k === "f" || k === "F") toggleFullscreen();
+  });
+
+  // Click the left fifth of the window to go back, anywhere else to go forward.
+  // Links and buttons on a slide (like "Try it") work without changing the slide.
+  document.addEventListener("click", function (e) {
+    if (e.target.closest("#bar") || e.target.closest("#notes") || e.target.closest("a") || e.target.closest("button")) return;
+    show(current + (e.clientX < window.innerWidth * 0.2 ? -1 : 1));
+  });
+
+  document.getElementById("prev").onclick = function () { show(current - 1); };
+  document.getElementById("next").onclick = function () { show(current + 1); };
+  document.getElementById("toggle-notes").onclick = toggleNotes;
+  document.getElementById("fs").onclick = toggleFullscreen;
+  document.addEventListener("mousemove", wake);
+  window.addEventListener("resize", fit);
+  window.addEventListener("hashchange", function () { show(fromHash()); });
+
+  fit();
+  show(fromHash());
+  wake();
+})();
+</script>
+</body>
+</html>

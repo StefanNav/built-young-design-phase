@@ -2,11 +2,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { CSSProperties, ReactNode } from "react";
-import { LESSONS, PROMPTS, RESOURCES, type GuideId } from "@/lib/data";
+import { LESSONS, PROMPTS, RESOURCES, SKILLS, type GuideId } from "@/lib/data";
 import CheckItem from "@/components/CheckItem";
 import Disclosure from "@/components/Disclosure";
 import { GoodUxChecklist, PremiumChecklist, TestGuide } from "@/components/Guides";
 import PromptCard from "@/components/PromptCard";
+import SkillCard from "@/components/SkillCard";
 
 export const dynamicParams = false;
 
@@ -265,6 +266,23 @@ export default async function LessonPage({ params }: { params: Promise<{ num: st
           <section>
             <h2 style={h2Style}>Find inspiration</h2>
             <ResourceLinks ids={l.resourceIds} />
+          </section>
+        )}
+
+        {/* Skills */}
+        {l.skillIds && l.skillIds.length > 0 && (
+          <section>
+            <h2 style={{ ...h2Style, marginBottom: 6 }}>Skills for Claude Code</h2>
+            <p style={{ font: "400 14.5px/1.5 var(--font-sans)", color: "var(--by-text-muted)", margin: "0 0 14px" }}>
+              Skills are add-ons that teach Claude to do one job really well. Each card says who made it
+              and where it came from. You&apos;ll use them in Claude Code, starting in Session 4. To install
+              one, open your terminal in your project folder and paste its install line.
+            </p>
+            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+              {l.skillIds.map((id) => (
+                <SkillCard key={id} skill={SKILLS[id]} />
+              ))}
+            </div>
           </section>
         )}
 
