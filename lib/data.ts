@@ -224,23 +224,32 @@ Once I pick the ones I like, design the main screen of my core loop in each dire
     label: "Prompt 7",
     title: "Design system",
     tool: "Claude Design",
-    howTo: "Run this once you've picked a direction.",
-    body: `I picked the [direction name] direction. Turn it into a small design system for my app.
+    howTo:
+      "Run this once you've picked a direction. Attach your mood board images, describe the look in the bracket, and paste this.",
+    body: `Build a complete design system for my app, the kind a product team at a top tech company hands to its engineers. Aim for the quality of Apple's Human Interface Guidelines or Google's Material Design, sized for one app.
 
-My app is [one-line description] for [primary users]. It should feel: [words].
-Anything about my users that affects how they see or use a screen: [for example, older adults with weaker eyesight]
+The look: [describe the direction you picked and what you like about it]
+I've attached reference images. Take the colors, textures, shapes and mood from them, not the objects in them.
 
-Define:
-- Typography: 1 or 2 free typefaces and a type scale (display, title, heading, body, caption) with sizes and weights
-- Color: a palette with roles (primary, text on primary, background, surface, text, muted text, border, success, warning, error), with hex values
-- Spacing scale (for example 4, 8, 12, 16, 24, 32)
-- Corner radius and shadow styles
-- Core components (buttons, inputs, cards, list rows, navigation) with their states
-- For each choice, one line on how it fits the feeling and my users
+Base the components on my wireframes, so every part used on my screens is in the system. Give every value a token, a name engineers use in code (like color.text.primary or space.16), and store the tokens as CSS variables in one shared file.
 
-Check every text and background pairing against WCAG AA contrast (4.5:1 for body text) and flag any that fail. Make tap targets at least 44 pt.
+Include:
+- Principles: 3 to 5 short rules for how the app looks and feels, each with an example
+- Color: a brand palette and a neutral palette, each as a scale from lightest to darkest (50 to 900). Then color roles built from them: background, surface, text (primary, secondary, disabled), border, primary (default, pressed, disabled), text on primary, accent, focus ring, and success, warning, error and info. Give every role a dark mode value too.
+- Typography: 1 or 2 free Google Fonts, and a type scale (display, title, heading, subheading, body, label, caption) with size, line height, weight and letter spacing
+- Spacing and layout: a scale on a 4-point grid (4, 8, 12, 16, 24, 32, 48, 64), plus screen margins and grid
+- Shape and depth: a corner radius scale, border widths, and 3 elevation levels
+- Icons and imagery: one free icon set (like Lucide or Phosphor) with sizes, and how photos and illustrations should look
+- Motion: durations and easing, and what changes when reduce motion is on
+- Voice: 3 rules for how the app writes, with a good and a bad example
+- Components: every part in my wireframes (like buttons, inputs, cards, list rows, navigation, dialogs and toasts), plus the ones only my app has. For each one: variants, sizes, every state (default, pressed, focused, selected, disabled, loading, error), and when to use it.
+- Patterns: forms with errors, and the empty, loading, error and success states
 
-Then apply the design system to the main screen of my core loop.`,
+For each section, add one line on why it fits the feeling and my users.
+
+Check every text and icon color against its background: 4.5:1 for body text, and 3:1 for large text, icons and borders (WCAG AA). Show the ratios in a table, and fix any that fail. Make tap targets at least 44 by 44 points, and never use color alone to show meaning.
+
+Then apply the design system to the main screen of my core loop, keeping the layout from the wireframe.`,
   },
   {
     id: "p8",
