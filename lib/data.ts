@@ -225,11 +225,15 @@ Once I pick the ones I like, design the main screen of my core loop in each dire
     title: "Design system",
     tool: "Claude Design",
     howTo:
-      "Run this once you've picked a direction. Attach your mood board images, describe the look in the bracket, and paste this.",
+      "Run this in your wireframe chat once you've picked a direction. Attach your reference image, describe the look in the bracket, and paste this.",
     body: `Build a complete design system for my app, the kind a product team at a top tech company hands to its engineers. Aim for the quality of Apple's Human Interface Guidelines or Google's Material Design, sized for one app.
 
+Build everything on a new page in this Claude Design project. Leave my wireframes untouched.
+
 The look: [describe the direction you picked and what you like about it]
-I've attached reference images. Take the colors, textures, shapes and mood from them, not the objects in them.
+I've attached my reference image: the one image that best shows the look I want. Take the colors, textures, shapes and mood from it, not the objects in it. Any mood board images I attach are extra context.
+
+Before you build the full system, design the main screen of my core loop in 2 or 3 options that each read the reference image differently. Show them side by side, then stop and wait for me to pick one, or to mix parts of them. Build the full design system from the option I pick.
 
 Base the components on my wireframes, so every part used on my screens is in the system. Give every value a token, a name engineers use in code (like color.text.primary or space.16), and store the tokens as CSS variables in one shared file.
 
@@ -249,7 +253,7 @@ For each section, add one line on why it fits the feeling and my users.
 
 Check every text and icon color against its background: 4.5:1 for body text, and 3:1 for large text, icons and borders (WCAG AA). Show the ratios in a table, and fix any that fail. Make tap targets at least 44 by 44 points, and never use color alone to show meaning.
 
-Then apply the design system to the main screen of my core loop, keeping the layout from the wireframe.`,
+Then apply the design system to the main screen of my core loop and 2 or 3 other core screens from my wireframes, keeping their layouts, so I can see how the product will look.`,
   },
   {
     id: "p8",
